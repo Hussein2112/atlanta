@@ -1,0 +1,7 @@
+iptables -A INPUT -p tcp -m multiport --dports 8080,443 -m conntrack -ctstate NEW, ESTABLISHED -j ACCEPT
+
+iptables -A INPUT -p tcp -m multiport --dports 8080,443 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+iptables -A INPUT -p tcp -m multiport --dports 8080,443 -m conntrack --ctstate RELATED, ESTABLISHED -j ACCEPT
+
+iptables -A INPUT -p tcp -m multiport --dports 8080,443 -m conntrack --:wqctstate NEW, ESTABLISHED -j REJECT

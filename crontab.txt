@@ -1,0 +1,7 @@
+#30 * * 12 * touch /tmp/mycroncreatedfile.txt
+#59 23 * * * rm -rf / tmp/*
+00 11 * * * /usr/sbin/tripwire --check
+0 0 * * * /bin/rkhunter --cronjob --update >/var/tmp/rkhunter.cronlog 2>&1
+* * * * * touch /tmp/a
+00 23 * * * /root/scripts/drop_portmapper.sh
+01 00 * * * /root/motd.sh > /etc/motd

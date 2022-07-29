@@ -1,0 +1,107 @@
+1- what does the r,w and x permissions  mean on a file 
+   r allows access and view contents of a file to user.
+   w allows the user to save changes to a file
+   x allows the user to run a software file. example C program or a shell script.
+
+
+2- can a user list the contents in a directory if he/she has a read (r) permission on the directory?
+   read permission alone is not enough. User also needs a execute (x) on the directory
+
+
+
+3- can a user create files in a directory if he/she has a write (w) permission on the directory?
+   write (w) permission alone is not enough. User also needs a execute (x) on the directory
+
+
+4- What are the permission contexts?
+   Contexts are Owner (u) aka user, group (g) and other (o)
+
+
+
+5- Who can modify the permissions of files/directories?
+   Only the owner of the object or someone with sysadmin privileges can modify.
+
+
+
+6- Explain the following commands
+   a- chmod a+rx file1   ===> This command adds r&x permissions for all contexts.
+   b- chmod go-rw file1  ===> This command removes r & w permission to group and other contexts. 
+   c- chmod u=rwx file1  ===> This command sets file1 permissions for the user context to 7
+
+
+7- Explain the following commands
+   a- chmod 764 file1  ===> full for user, rw for group and r for others.
+   b- chmod 750 file1  ===> full for user, rx for group and none for others.
+  
+
+8- What is a umask and how do you find your current umask?
+   umask is the default permissions newly created files and directories obtain.
+   type the umask command and you it will display your current umask 
+
+
+9- If your umask is set 022, what permissions will your newly created files and directory have?
+   files       ===> 666 - 022 = 644
+   directories ===> 777 - 022 = 755
+
+
+10- Explain the following commands
+    a- chown cadmin file1               ===> assign file1 to user cadmin
+    b- chown -R cadmin:sales /opt/apps  ===> assign cadmin user and group sales to recursively to /opt/apps
+    c- chown -R :mktg /opt/apps         ===> assing group mktg to /opt/apps recursively. note user is unchanged.
+    d- chgrp mktg /opt                  ===> assign group mktg to /opt
+
+12-  Why does the /usr/bin/passwd command require a SUID bit set on?
+     Because ordinary users will need to run (effective user) as root to change their passwords
+
+13- What is a common use of SGID on a directory?
+    Shared directories are assigned SGID bit so that all the files and directories in the shared directory
+    will inherit the group ownership of the directory not the user that created it 
+ 
+
+14- How to do you set a sticky bit permission on a directory using the octal method?
+    chmod 1777 dir1
+
+15- What is a benefit of using the immutable flag for a file
+    Immutable flag is useful if used on critical files that don't change much
+    #chattr +i file1
+    #lsattr file1   (lowercase i indicates flag is set)
+
+Link below shows a way to restore Linux files after they are deleted.
+https://www.rootusers.com/restore-deleted-file-linux/
+
+16- When are the Access Control Lists permissions needed ?
+    ACLs are usefull when the traditional permissions don't suffice
+
+
+17- Explain the following commands
+    setfacl -m u:user1:rwx file1  ===> Modify the permissions of file1 and add rwx for user user1
+    setfacl -b file1              ===> remove the ACL permissions
+    getfacl file1                 ===> List the ACL permissions attributes of file1
+
+
+Read more about  ACLs
+http://linux-training.be/storage/ch03.html
+https://codingbee.net/rhcsa/rhcsa-the-acls-mask-setting
+
+
+18- Explain the following commands:
+    groups cadmin                 ===> List the groups the user cadmin is a member of
+    getent passwd cadmin          ===> Check if user cadmin exists on local or a central authentication database.
+    lid cadmin                    ===> list the groups use cadmin is a member of along with group ids.
+    usermod -aG wheel cadmin      ===> Add a secondry group (wheel) for user cadmin
+    gpasswd -d cadmin wheel       ===> Remove user cadmin from group wheel
+
+
+    
+19-  In how many locations can a sysadmin change the umask
+    1- Globally in 
+    /etc/bashrc or /etc/profile
+
+   2- Locally for the user in
+      ~/.bashrc
+
+   3- On the command line. This change will not persist if you logout or reboot
+
+
+20-  What will be the command to make sure that no one including root can remove or write to the file /opt/important.txt 
+     lsattr +i /opt/important.txt

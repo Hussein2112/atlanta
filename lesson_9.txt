@@ -1,0 +1,137 @@
+1- What is a device driver?
+
+2- How would Linux register/display a USB storage device attached to the system?
+
+
+3- How would you define a Thin Client
+
+
+4- T or F USB is very effective for streaming video/audio output in real-time
+
+
+5- List two ways you can connect to a Printer
+
+6- Can a Linux system have more than one Network Interface?
+
+
+7- Are SATA Storage devices suitable for Enterprise Production Environments?
+
+
+8- Mention one difference between SCSI and SATA
+
+9- What is an HBA?
+
+10- What is PCI?
+
+11- In which directories are device files located?
+
+
+12- What is udev and what does it do?
+
+
+13- In Which directory are the udev Rules configured?
+
+
+14- What is the command that is used to manage udev?
+
+15- Explain the command "udevadm info /dev/sda"
+
+16- What is CUPS (Common UNIX Printing System)?
+
+
+17- Explain the following printer commands.
+    A- lpstat -p   ===> 
+    B- cupsdisable  tty2printer  ==>
+    C- lpstat -p | grep disabled | awk '{print $2}' | xargs cupsenable ==> 
+
+18- What is the difference between lsusb and lspci?
+
+19- Explain the following commands
+a-  lpq  ==> 
+  b-  lsblk ==> 
+  c-  lpr /etc/passwd  ==> 
+  d-  dmesg ==> 
+  e-  mcelog ==> 
+  d-  free -m ==> 
+  f- abrt-cli ls  ==> 
+  g- lshw -c network ==> 
+
+20- What command will you use if new LUNs (disks) are added to your machine thru 
+    SAN?
+
+21- How do you find if the device driver module of your ethernet adapter is loaded
+
+
+====================================
+Bonus:
+1-
+Which of the following commands would show the default printer on a Linux system?
+A.  lpr
+B.  lpq
+C.  lpstat
+D.  lspci
+
+
+
+2-
+An administrator is logged into a server remotely and wants to determine if the system is a VM. Which of the following commands would assist
+with this?
+A.  dmesg
+B.  ps
+C.  top
+D.  vmstat
+
+3-
+A Linux administrator needs to remove a USB drive from a system. The unmount command fails, stating the device is busy. Which of the following
+commands will show the reason for this error?
+A.  lsusb | grep /mnt/usb
+B.  mount | grep /mnt/usb
+C.  ps aux | grep /mnt/usb
+D.  lsof | grep /mnt/usb
+
+
+4-
+An administrator needs a bootable USB for installing a new Linux machine. The administrator downloaded the image file and named it as
+Linux_OS.iso in the / tmp directory. Which of the following commands will accomplish that task?
+A.  dd input=/tmp/Linux_OS.iso of=/dev/sda bs=512
+B.  dd in=/tmp/Linux_OS.iso out=/dev/sdb bs=512
+C.  dd if=/tmp/Linux_OS.iso of=/dev/sda bs=512
+D.  dd if=/tmp/Linux_OS.iso out=/dev/sdb1 bs=512
+
+5-
+Which of the following can be used to check the status of wireless devices that are connected to the system?
+A.  lsusb
+B.  iwconfig
+C.  netstat
+D.  ifconfig
+
+6-
+Which of the following will provide a list of all flash, external, internal, and SSD drives?
+A.  lspci
+B.  lsmod
+C.  lsblk
+D.  lsusb
+
+7-
+A systems administrator configured a new kernel module, but it stopped working after reboot. Which of the following will allow the systems
+administrator to check for module problems during server startup?
+A.  lsmod
+B.  modprobe
+C.  modinfo
+D.  dmesg
+
+8-
+Which of the following commands will let a Linux user know the PCI devices that are installed in the system?
+A.  cat /proc/devices/pci
+B.  lspci
+C.  lsdev
+D.  cat /proc/sys/dev
+
+9-
+Which of the following commands would show the default printer on a Linux system?
+A.  lpr
+B.  lpq
+C.  lpstat
+
+
+

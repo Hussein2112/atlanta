@@ -1,0 +1,464 @@
+Review of Week 2
+Lesson 4:
+===========
+
+
+Inode:
+----------
+ls -li
+Metadata: Time values, permissions/ownership, block storage locations, etc
+
+Journaling:
+----------
+A method by which a file system records changes that have not yet been made to the file system itself in an object called a journal.
+
+
+Virtual File System:
+----------
+A common software interface between the Linux kernel and various real file systems.
+
+
+Types of Partitions:
+----------
+Primary
+Extended
+Logical
+
+
+fdisk /dev/sdc   # To partition /dev/sdc using fdisk
+parted /dev/sdc   # To partition /dev/sdc using parted
+
+Parted Options:
+Select:		  Choose which device/partition to modify.
+mkpart:   	  Create partition with specified file system type.
+print: 		  List partition table.
+resizepart:       Modify end position of partition.
+rm: 		  Delete partition.
+quit:   	  Exit utility
+
+
+partprobe:  Updates kernel with changes to partition table.
+
+mkfs.ext4 /dev/sd6  #Create a filesystem on /dev/sda6. sda6 partition was either  created with parted or fdisk
+
+/etc/fstab       #Configuration file that stores device, partition, and mount info.
+
+
+Device Mapping:   The process of abstracting physical storage devices into virtual storage devices.
+
+
+Logical Volume Manager : Software that maps physical devices and partitions to logical volumes.
+
+
+pvcreate /dev/sdd1 /dev/sde1  # Create two PVs (physical volumes)
+
+pvremove /dev/sde1            # remove /dev/sde1
+
+
+vgcreate shared /dev/sdb1 /dev/sdd1  # Create VG named shared on sdb1 and sdd1
+
+vgdisplay #  display Volume Group Information
+
+lvcreate -L +2G -n applv shared
+
+
+https://www.youtube.com/watch?v=Eu1WrVjzRy8
+
+Mount Point:  
+---------------
+An access point to information stored on a local or remote storage device.
+
+#mount /dev/sda5 /mnt 
+Loads file system into directory.
+Makes file system usable.
+You must specify device to mount and mount point.
+
+#umount /finance:    
+Disassociates file system from mount point.
+File system must not be in use.
+Example: App has a file open.
+
+
+cat /proc/mounts   # This file Lists status of all currently mounted file systems
+
+cat /proc/partitions  # Contains info about each partition.  Not a real file; part of VFS.  Column format: major, minor, #blocks name
+
+
+#lsblk  
+This is how find disks available to your machine
+Displays info about all block storage devices.
+
+#blkid  
+Similar to lsblk command. Prints block device info in flat format. 
+Includes additional info like UUIDs and file system types.  
+Using lsblk -f is preferable.
+
+#fsck /dev/sd6  
+Checks integrity of file system...Most systems run fsck at boot.
+Errors usually caused by power/hardware failures or improper shutdown.
+Unmount file system before using fsck to prevent damage.
+
+
+
+Absolute vs. Relative Paths
+Absolute path is a specific location.
+Irrespective of CWD or combined paths.
+References root directory.
+Starts with forward slash.
+Relative path however is based on CWD (Current Working Directory).
+Don't begin with forward slash.
+Full absolute path not necessary.
+Can contain CWD (.) and parent directory (..) indicators.
+
+The df command displays device's:
+Free space
+File system
+Total size
+Percentage of space used
+Mount point
+Example:
+df -Th     #Display mounted filesystems. the T shows the type and h shows the numbers in 
+Human Readable format
+df -h /backup/sys
+
+The du command displays file or directory sizes.
+Example:
+du -s * |sort -rn -k1|head   #Sort files in this directory by size and show the top 10
+du -h /backup/sys
+
+
+I/O Scheduling:
+The process by which the OS determines the order of I/O operations as they pertain 
+to block storage devices.
+Schedular types are: deadline, cfq and noop
+Changing the scheduler:
+sudo echo noop > /sys/block/hda/queue/scheduler
+
+#iostat -d /dev/sda2   
+Check the read write IO for the Block device /dev/sda2
+
+
+#ioping -c 5 /dev/sda2   
+Generates report of device I/O latency in real-time. Used for troubleshooting latency issue
+
+
+
+
+Lesson 5 Review
+---------------
+Common Editors:
+vi
+Vim
+Emacs
+gVim
+gedit
+GNU nano
+
+
+
+#vim
+Invokes Vim text editor.
+vi redirects to Vim.
+Without an argument, command opens welcome screen.
+Use vim {file name} syntax to open a file.
+If no file exists, Vim creates one with that name and opens it.
+Supports multiple files opened simultaneously.
+
+Vim and nano cheet sheets
+https://www.cs.cmu.edu/~15131/f17/topics/vim/vim-cheatsheet.pdf    #vim cheat sheet
+http://www.cheat-sheets.org/saved-copy/Nano_Cheat_Sheet.pdf        #nano cheat sheet
+
+
+#locate file1.txt  ==> Performs a quit search. mlocate db must be updated with updatedb command. Results may be restricted based on access permissions
+
+
+find command:
+--------------
+find  is very versatile but expensive on the cpu. As a sysadmin you must become fluent in find
+Searches specific locations.
+Recursively searches directory structure.
+need root or sudo privilege to search outside of your home directory
+Can use following criteria:
+-name
+-size 
+-owner
+-iname
+-ctime
+-empty
+-user
+-nouser
+
+
+
+#find . -name hosts         ==> Search the current directory and subdirectories for file(s) named hosts. 
+#sudo find / -name passwd   ==> Searches the whole system for a file named passwd
+#find . -ctime 1            ==> changed in the last 24 hours
+#find . -atime 2            ==> accessed in the last 48 hours
+#find /home/student16 -newer file1.txt  ==> find files in stdnt16 home directory that are newer then file1.txt file
+#find . -empty                         ==> find the empty files in the current directory and subdirectories
+#find . -empty -type f                 ==> find empty files in the current directory of type file
+#find . -empty -type f -exec rm -f {} \;   ==> find empty files and removes them
+#find . -empty   |xargs rm -rf             ==> find empty files and directories and remove them
+#find ~cadmin -name "*.tar" -exec cp -v {} /home/stdnt16/test/ \;  ==> find files with  .tar extension and copy thm to /home/stdnt16/test directory
+#find ~cadmin -name "*.tar" |xargs -Ix cp x  /home/stdnt16/test    ==> same as above but using xargs
+
+#find / -perm /1000 -ls   ==> Will list all the files with sticky bit set
+#find / -perm /2000 -ls   ==> Will list all the files with SGID bit set
+#find / -perm /4000 -ls   ==> Will list all the files with SUID bit set
+
+
+
+#which cat    ==> find where cat was installed or which version of a command is getting executed in case there is more than one version is installed
+#whereis cat  ==> find location of cat and whether man pages are installed for that command
+
+
+#head -2 /etc/passwd    ==> print the first two lines of /etc/passwd ... default is 10 lines
+#head -n -2 /etc/passwd ==> print all but the last two lines of /etc/passwd
+
+tail -2 /etc/passwd           ==> print the last two lines of /etc/passwd ...deafault is 10
+tail -f /var/log/messages     ==> keep tailing that file to see updates
+
+
+less and more  are used to page thru lengthy text files
+
+#cp /etc/passwd /mnt/backup/                              ==> copy file to target
+#cp /etc/passwd /etc/group /etc/shadow /mnt/backup/       ==>copy multiple files to target(/mnt/backup)
+#cp -v /etc/fstab  /mnt/backup/                           ==> Verbose output during copy command (-v)
+#cp -r /home/linuxtechi /mnt/backup/                      ==> Copying a directory or folder (-r or -R)
+#cp -v -u  file_*.txt /mnt/backup/linuxtechi/             ==> Copy only when source file is newer than the target file (-u)
+#cp -n /etc/passwd /mnt/backup/                           ==> Do not overwrite the existing file while copying (-n)
+
+
+#mv dir1 /tmp/dir1                                        ==> move and rename dir1
+
+
+# rm -r file1.txt file2.txt file3.txt file4.txt              ==> remove those files but interactively
+#rm -r dbstore/                                              ==> Deleting a directory recursively using -r option
+
+
+#wc -l /etc/host                                            ==> count the number of lines of file /etc/hosts
+
+#sort /etc/passwd                                           ==> sort the /etc/passwd in alphabetical order
+#sort -t: -rn -k3 /etc/passwd                               ==> sort the /etc/passwd file in reverse numerical order on the second field using : as the field delimeter
+
+#cut -d: -f1 /etc/passwd                                     ==> display the first field using colon as the delimeter
+
+#diff file1 file2                                             ==> compares two text files and displays differences
+
+#grep -iw "the" demo_file                                      ==> grep the word "the" from file demo_file ignoring the case.
+#grep -rl hosts /etc/                                          ==> display the names of files the contain the string "hosts" in the /etc/ directory.
+
+
+#awk -F: '{print $1}' /etc/passwd                             ==> Same as command #cut -d: -f1 /etc/passwd 
+
+#sed 's/bob2/robert/g' /etc/passwd                          ==> replaces the string bob2 with robert /etc/passwd...doesn't change file
+#sed '/Apache/d'     software_list.txt                         ==> delete line containing the string Apache from file...doesn't change file itself. Only on stdout
+sed -i 's/apache/Apache/g' software_list.txt                ==> # Search and replace apache with Apache
+
+
+
+The ln command:
+---------------
+Used to create a link to a file.
+File name in one directory (link) points to file in another directory (target).
+Link doesn't contain data, only reference to target.
+Changes to link reflect in the target.
+If you don't specify link name, it will be created in current working directory.
+
+#ln -s file1 file2             ==> file2 now becomes a symblic link to file1 (shortcut)
+#ln -s /var/www/html html      ==> html is now a symbolic link to /var/www/html
+
+#ln /etc/passwd mypasswd       ==> mypasswd becomes a hard link to /etc/passwd. A hard link is an exact copy of original not a shortcut.
+
+
+printf " Bob Jones\n 222 Pine Street\n"   ==>  Prints that string to stdout with new line characters.
+
+
+
+Redirection:
+--------------
+Input redirection:
+#mail -s "Subject" to-address admin@yahoo.com < Filename    ==> Email Filename to-address
+
+STDOUT
+======
+cat music.mp3 > /dev/audio      ==> If the sound configurations in your PC are correct, this command will play the file music.mp3
+
+cat file1 > file2              ==> write contents of file1 to file2 by overwriting contents in file2
+cat file1 >> file2             ==> append output of file1 to file2 
+
+
+STDERR
+==========
+cat file1 2>/dev/null            ==>if cat file1 errors then send error message to /dev/null. Error message disappears
+cat file1 2>/tmp/err.log         ==>if cat file1 errors then send error message to /tmp/out.log
+cat file1 file2 &>/tmp/err.log   ==>Send both stdout and sterr to /tmp/err.log
+
+
+find /var/log -type f -size 0 -or -size +100k -mmin -30  #Search for log files that are either empty or above 100 KB, and have been updated in the last 30 minutes.
+find ~ -type f -name '*.txt" |xargs chmod 755  ==> find files by extention .txt in my home directory and chmod to 755
+
+cat /etc/passwd |tee  /tmp/mypasswd      ==> Display output of /etc/passwd in stdout but also send output to file /tmp/mypasswd
+
+
+
+Lesson 6 Review:
+==================
+Managing Kernel Modules
+
+Kernel:
+The core component of an operating system.
+	All other components rely on it.
+	Manages file system access, memory, processes, devices, etc.
+	Controls all plugged-in hardware devices.
+	One of first elements to be loaded on startup.
+	Remains in memory during computer's operation.
+	Contains system-level commands/functions hidden from users.
+
+Components Controlled by the Kernel:
+	Filesystem Acces
+	Meomry
+	Processes
+	Devices
+	Resource Allocation
+
+
+
+
+Kernels tend to divide Software running in memory into two spaces:
+                                -------    ------
+Kernel Space:
+	Region in memory where kernel executes its services.
+User space:
+	Region in memory outside of kernel space.
+	Includes high-level apps, background processes, system libraries, etc.
+	Software in user space accesses kernel space services.
+	Issues system calls.
+	Provides app with resources needed to perform a task.
+	Example: App calls kernel to leverage I/O for data storage writing.
+	Split between spaces promotes stability and security.
+
+Types of Kernel:
+Monolithic:
+	All system modules run in kernel space.
+	Can interact quickly with devices.
+	Large size, consumes more RAM.
+	Less stable.
+Microkernel:
+	Runs minimum resources necessary.
+	Smaller kernel space, larger user space.
+	Smaller over size, consumes less RAM.
+	More stable.
+	Worse performance.
+
+uname command:
+uname -r prints kernel version.
+uname -i prints hardware platform.
+uname -a prints all.
+
+
+Kenel Layers:
+SCI (System Call Interface):
+	Handles system calls sent from user space to kernel.
+	Enables scheduling of calls and of managing multiple calls at once.
+Process Management:
+	Allocates execution space on processor to processes.
+	Shares processor time for multiple processes.
+Memory management
+	Shares memory with user space resources.
+	Allocates memory on request and frees it when no longer needed.
+File system management
+	Stores, organizes, and tracks files.
+	Also supports VFS.
+Device management
+	Manages interface between devices and user space.
+	Reads calls to devices and passes them on.
+
+
+Which function is associated with the SCI layer of the kernel?
+	a.Passing requests to device drivers.
+	b.Sending service requests to the kernel.
+	c.Allocating processor time for functions.
+	d.Processing scheduling functions.
+	e.Organizing files on the file system.
+
+
+Which of the following accurately describe the user space? (Choose two.)
+	a.It is the area of the memory where the kernel executes its services.
+	b.It is the area of memory in which most high-level software runs.
+	c.It is the part of the system that only logged in users can access.
+	d.It is the area of memory in which background processes and low-level system libraries run.
+
+
+/usr/lib           ==> Contains shared libraries and binaries for software packages. Not meant to be executed by users.
+/usr/lib/modules   ==> contains modules for different kernel versions.
+			Has directory named after kernel's version number.
+			Modules are in subdirectories based on category.
+
+Kernel Module Commands:
+lsmod       ==> 
+modinfo     ==> modinfo /usr/lib/modules/$(uname -r)/kernel/drivers/bluetooth/btusb.ko.xz
+insmod      
+rmmod
+
+
+modprobe:
+	Used to add/remove modules from kernel.
+	Can load dependent modules as well.
+	Preferred over insmod and rmmod commands.
+	Use -a option to add modules.
+	Use -r option to remove modules.
+modprobe reads the modules.dep file to identify dependencies and depmod updates the modules.dep database.
+/etc/modprobe.conf is deprecated.
+/etc/modprobe.d/ is used instead and contains various .conf files. Alias can be created in these files
+
+
+Kernel Parameter:
+sysctl command is used to view or set kernel parameters at runtime.
+#sysctl -a
+#sysctl -w parameter=value
+/etc/sysctl.conf     ==> is the configuration file used to tune and to set security paramters for a linux kernel.
+
+Configurable system parameter are found /proc/sys/
+crypto    ==> Cryptographic services.
+debug     ==> Debugging kernel.
+dev       ==> Hardware devices.
+fs       ==>  File system data.
+kernel   ==>  Miscellaneous kernel functionality.
+net       ==> Networking functionality.
+user       ==> User space limitations.
+vm       ==>   Virtual memory management.
+
+
+
+Some important files in /proc
+------------------------------
+/proc/cmdline        ==> Options passed to kernel at boot time.
+/proc/cpuinfo        ==> CPU Info
+/proc/devices    ==>  List of character and block devices loaded into kernel.
+/proc/filesystems    ==> List of supported file system types and any currently mounted.
+/proc/meminfo        ==> Information about RAM usage.
+/proc/modules        ==> Information about currently installed modules.
+/proc/stat           ==> Various stats about system since last reboot.
+/proc/version        ==> info about kernel and gcc etc..
+
+
+dmesg command: used to examine or control the kernel ring buffer
+-------------
+Prints messages sent to kernel buffer during and after boot.
+Device drivers send messages.
+Indicates status of modules/parameters.
+Diagnostic messages when there are errors.
+Other kernel components can send messages too.
+Message buffer can also be accessed from /var/log/dmesg
+Use to look for potential issues with kernel components.
+Use to validate modules are loading.
+
+
+#dmesg -H |grep -i network ==>  Network Card details 
+#dmesg -h                  ==> help on dmesg command
+dmesg -l err               ==> errors pertaining to level error
+dmesg -l warn,crit,emerg
+dmesg -f kern -l warn    ==> error messages of facility kernel at level error
+
+

@@ -1,0 +1,229 @@
+ Nine Bonus Questions First:
+
+1-
+A Linux storage administrator wants to create a logical volume group. Which of the following commands is required to start the process?
+A.	pvcreate
+B.	vgcreate
+C.	lvcreate
+D.	mkfs.xfs 
+
+
+A
+
+2-	An administrator is tasked with increasing the size of the volume /dev/vg/lv to 20GB. Which of the following BEST illustrates the steps the administrator should take?
+A.	vgextend L20G /dev/vg/lv; resizelv /dev/vg/lv
+B.	parted L20G /dev/vg/lv; remount /dev/vg/lv
+C.	mkfs L20G /dev/vg/lv; tune2fs /dev/vg/lv
+D.	lvextend L20G /dev/vg/lv; resize2fs /dev/vg/lv
+
+
+D
+
+
+3- 
+A technical support engineer receives a ticket from a user who is trying to create a 1KB file in the
+/tmp directory and is getting the following error No space left on device. The support engineer checks the
+/tmp directory, and it has 20GB of free space.
+Which of the following BEST describes a possible cause for this error?
+A.	The /tmp directory is not mounted.
+B.	The filesystem is formatted with a 4MB block size.
+C.	the filesystem ran out of inodes.
+D.	The /tmp directory has been set with an immutable attribute.
+
+
+
+C
+
+4-
+	Which of the following is the BEST reason for not storing database files in the /var directory?
+A.	The /var filesystem is not fast enough for database files.
+B.	The number of files in /var is limited by the available inodes.
+C.	Files in /var do not have strict file permissions.
+D.	If log files fill up /var, it might corrupt the database.
+
+
+D
+
+
+
+
+
+5-
+A Linux administrator needs to remotely update the contents of the www.comptia.org/contacts URL. Which of the following commands would allow the administrator to download the current contents of the URL before updating?
+A.	curl www.comptia.org/contacts
+B.	dig www.comptia.org/contacts
+C.	apt-get www.comptia.org/contacts
+D.	yum list www.comptia.org/contacts
+
+
+A
+
+
+6-
+A systems administrator needs to append output of ls lha /opt command to the contents of a test.txt file.
+Which of the following commands will accomplish this?
+A.	ls lha /opt > test.txt
+B.	ls lha /opt < test.txt
+C.	ls lha /opt >> test.txt
+D.	ls lha /opt << test.txt 
+
+
+C
+
+7-
+The lead Linux has added a disk, /dev/sdd, to a VM that is running out of disk space. Place the following steps in the correct order from first (1) to last (4) to add the disk to the existing LVM.
+1- lvextend -L +10GB /dev/mapper/vgdata-data
+2- pvcreate /dev/sdd
+3- resize2fs /dev/mapper/vgdata-data
+4- vgextend vgdata /dev/sdd
+
+2,4,1,3
+
+8-
+An administrator needs to see the type of CPU that a server is running. Which of the following files contains this information?
+A.	/proc/cpuinfo
+B.	/etc/devices/info.conf
+C.	/dev/proc/cpu
+D.	/sys/dev/cpuinfo 
+
+A
+
+9-
+A Linux administrator must identify a user with high disk usage.
+The administrator runs the # du s /home/* command and gets the following output:
+43   /home/User1
+2701 /home/User2
+133089 /home/User3
+3611 /home/User4
+
+Based on the output, User3 has the largest amount of disk space used. To clean up the file space, the administrator needs to find out more information about the specific files that are using the most disk space.
+ 
+Which of the following commands will accomplish this task?
+A.	df k /home/User/files.txt
+B.	du -a /home/User3/*
+C.	du sh /home/User/
+D.	find . name /home/User3 -print
+
+
+
+
+
+
+
+
+1- What is an inode and how do you indentify the inode of a file?
+ Inodes are Objects that store metadata about files and directories on a file system.
+ Metadata: Time values, permissions/ownership, block storage locations, etc.
+ In order to identify the inode of a file, run the command "ls -li filename" 
+ The -i option displays the inode number.
+
+
+2- What is Journaling on a filesystem?
+   Journaling is a method by which a file system records changes that have not yet been made to the file system itself in an object called a journal.
+
+
+
+3- List the name of one virtual filesystem?
+   /proc
+
+
+4- List three types of partitions
+    a- Primary
+    b- Extended
+    c- Logical
+
+
+5- What is a swap space
+   A swap space is a partition on the storage device that is used as RAM when the system runs out of physical memory (RAM).
+
+
+
+6- What is the fdisk utility used for and what help on the fdisk submenu?
+   fdisk is used to create, modify, and delete partitions.
+   The option m will give you the list of options in the fdisk submenu
+
+
+7- What is the command to update the kernel after fdisk is used to partition a disk.
+   partprobe
+
+
+8- Explain the following command mkfs.xfs /dev/sdb4
+   Builds an xfs type filesystem on partition /dev/sdb4
+
+
+9- what is the fstab filesystem used for?
+   Ensures filesystems are mounted after a reboot
+
+
+10-What is a logical Volume Manager and list three advantages of LVM compared to physical partition management?
+   LVM is a Software that maps physical devices and partitions to logical volumes.
+   Some Advantages over physical partitioning are
+   - Volumes can be dynamically managed without needing a reboot
+   - a Logical volume can exceed the size of any one physical device
+   - You can create snapshots of logical volumes
+
+
+11- Explain these commands. 
+    pvcreate, vgcreate and lvcreate
+   - pvcreate initializes a drive/partition as a PV
+   - vgcreate creates a volume group. a VG must contain at least one PV
+   - creates Logical Volumes with in a VG
+
+
+12- What is a mount point?
+    An access point to information stored on a local or remote storage device.
+
+
+13- What is the mount command used for?
+    Mount command is used for loading a parition/filesystem into a directory (mount point)
+   Example: mount /dev/sdb2 /app1
+
+
+14- What command will you use to list all the partitions and block storage devices in your systems?
+    lsblk
+
+
+15- what is the fsck command used for?
+	Checks integrity of file system.  Most systems run fsck at boot.
+	Errors usually caused by power/hardware failures or improper shutdown.
+
+
+16- What is the tune2fs command used for:
+	Configures tunable parameters on ext2/3/4 file systems.
+	Tunable parameters enable you to:
+	Specify number of mounts between checks.
+	Specify time interval between checks.
+	And more.
+	You can also use tune2fs to add a journal to ext2/3 file systems.
+See below link for more examples 
+https://linux.101hacks.com/unix/tune2fs/
+   
+
+17- List 4 xfs tools (commands)
+	xfs_info   ===> Display details about filesystem 
+	xfs_admin  ===> Change parameters of filesysem
+	xfs_growfs ===> Expand filesystem to fill drive size
+	xfs_copy   ===> copy contents of file system to another location
+
+18- What is the CPU schedular ideal for devices that do their own sorting (USB,SSD drives)
+    noop
+    also, read about the "deadline" and "cfq" schedulers
+
+
+19- Explain the command "iostat -d /dev/sda 3"
+    Generate I/O stats for device /dev/sda once every three seconds
+
+
+20-What is the command "repquota -a" used for?
+	You can view how storage is being used by each user.
+	Can help you troubleshoot quota issues.
+	Details:
+	Name of user/group.
+	Total blocks being used.
+	Soft limit on storage.
+	Hard limit on storage.
+	Grace period.
+	Total inodes being used.
+	Soft limit on inodes.
+	Hard limit on inodes.
+

@@ -1,0 +1,13 @@
+Name		Version		Installed?		Configured?
+
+MySQL		8.0.12		N			N
+Eclipse		4.9		N			N
+OPenVAS		9.0		N			N
+LibreOffice	6.1.0		Y			Y
+OpenVAS		7.0		N			N
+Snort		2.9.11		N			N
+Firefox		62.0.3		Y			Y
+Thunderbird	52.0.1		Y			N
+Python		3.7.0		N			N
+Git		2.19.0		Y			N
+Firefox		55.0.1		Y			Y

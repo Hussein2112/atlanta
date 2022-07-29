@@ -1,0 +1,159 @@
+1- What does localization usually include?
+
+
+2-List two ways that you can change a system's time zone?
+
+
+3- Explain the following commands
+  a- timedatectl set-time 23:00       
+  b- timedatectl set-ntp 0           
+  c- date +'%Y/%m/%d %H:%M'         
+  d- hwclock -w                    
+ 
+
+
+4- Explain the following commands:
+   a-localectl set-keymap us                  
+   b- localectl set-locale LANG=uk_UA.utf8   
+
+
+5-  What are the names of the two most common Display Servers
+
+6- What is the main difference between X Windows and Wayland display servers?
+
+
+7- What is the most common Desktop Environment used today?
+
+
+8- List Four Desktop Environments in Linux?
+
+
+9- What is one benefit of using a Remote Desktop Environment over a normal ssh CLI session?
+
+
+10- What are services?
+
+
+11- What are the two main methods that initialize a Linux System?
+
+
+12- Which the newer method of initializing a Linux System?
+
+
+
+13- What are unit files?
+
+
+
+14-  What are systemd targets?
+
+
+
+15- What command do we use to stop, start or check the status of a server.
+
+
+16- Explain the following commands.
+    systemctl isolate muti-user.target  
+    systemctl isolate graphical.target 
+
+
+
+17- What are 5 different states of Processes?
+
+
+18- Using the ps coommand, how would you list the top 10 CPU consuming processes?
+
+
+19- What is the systemd-analyze command used for?
+
+
+
+20- Explain the following command
+    a- lsof -i            
+    b- kill -9 1234      
+    c- bg %1            
+    d- uptime          
+
+
+21- What is the significance of the following two files
+    a- /proc/cpuinfo  
+    b- /proc/meminfo 
+
+
+
+
+22- How do you find a process's nice value with the ps command
+
+23- A user wants to start the application loadtest.bin in a way that minimizes its effects on other system users.
+Which of the following commands should be used to start the application with minimal impact?
+a.      nice -n 15 loadtest.bin      
+b.      nohup loadtest.bin
+c.      bash -x loadtest.bin
+d.      sudo renice -n 15 loadtest.bin
+=========================================================================
+
+
+Bonus:
+1-	An administrator needs to look at a log for an application on a systemd-based system. There is no log for this application in /var/log. Which of the
+following is another way to view the application log on this system?
+A.  tail -f /var/log/secure
+B.  journalctl  -u application
+C.  systemctl application.service
+D.  watch /var/lib/application/
+
+2-
+A systems administrator receives a report that the web server is not running after a planned system reboot. After starting the web server manually,
+which of the following commands should the administrator issue to ensure the web server starts at boot time?
+A.  systemctl service on
+B.  systemctl enable <name>.service
+C.  systemctl service enable
+D.  systemctl on <name>.service
+
+
+3-
+A configuration management tool running every minute is enforcing the service HTTPd to be started. To perform maintenance, which of the
+following series of commands can be used to prevent the service from being started?
+A.  systemctl stop httpd && systemctl mask httpd
+B.  systemctl disable httpd && systemctl mask httpd
+C.  systemctl stop httpd && systemctl hide httpd
+D.  systemctl disable httpd && systemctl hide httpd
+
+
+4-
+A Linux administrator needs to disable the Sendmail service on a Linux server and prevent it from being started manually and during boot.
+Which of the following is the BEST command to do this?
+A.  systemctl reset-failed sendmail
+B.  systemctl mask sendmail
+C.  systemctl stop sendmail
+D.  systemctl disable sendmail
+
+
+
+5-
+A systems administrator notices several intensive tasks executing from users Joe and Ann. These processes are impacting server operations but
+must be allowed to continue running.
+Which of the following commands should the systems administrator run to reduce the impact on the server?
+A.  pkill -u joe ann
+B.  renice 11 -u joe ann
+C.  nohup -u joe ann
+D.  strace -u joe ann
+
+
+6-
+A systems administrator is configuring options on a newly installed Linux VM that will be deployed to the Pacific time zone. Which of the following
+sets of commands should the administrator execute to accurately configure the correct time settings?
+A.  cd /etc ln -s /usr/share/zoneinfo/US/Pacific localtime
+B.  cd /usr/local ln -s /usr/share/zoneinfo/US/Pacific zoneinfo
+C.  cd /etc/local ln -s /usr/share/zoneinfo/US/Pacific localtime
+D.  cd /usr/share/local ln -s /usr/share/zoneinfo/US/Pacific localectl
+
+
+7-
+A company requires all servers to be configured with the BIOS on Coordinated Universal Time and the OS on Central Standard Time.
+Which of the following can be used to change the time according to these requirements? (Choose two.)
+A.  localectl
+B.  LC_ALL
+C.  date
+D.  time
+E.  hwclock
+F.  crontab

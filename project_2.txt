@@ -1,0 +1,28 @@
+This is a mini project to install a webserver on your virtual machine
+
+Loging to Atlanta server at 45.32.212.147
+
+On the Atlanta server, Remember to run the commands with sudo privilege
+
+1- tar up all the files in atlanta server in /var/www/html/ except the directory virtualbox
+   
+
+
+
+2- On your VM
+   Download the the tar file from the atlanta server
+
+   
+3-   Install Apache web server on your VM
+   
+4-  Start Apache web server on your VM
+
+5-   Check if your webserver is listening on port 80 
+
+6- On your VM, untar the file that you downloaded from atlanta server on the directory /var/www/html
+
+7- run firfox on your VM and see if you can connect to the webserver
+
+
+8- On your Host machine, see if you can connect to your VM's webserver 
+   Note: On your VM, Don't forget allow port 80 through your firewall

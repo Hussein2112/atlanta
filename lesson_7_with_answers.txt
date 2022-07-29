@@ -1,0 +1,186 @@
+1- When the first thing that runs when a computer with BIOS is started? 
+   the BIOS firmware is the first to run; this enables it to test the various
+   hardware components in a computer, as well as run a boot loader 
+  so that an operating system can start. 
+
+
+2- What is a boot loader? 
+A boot loader is the small program stored in ROM that loads the kernel from a storage
+device, and then starts the operating system. A boot environment like BIOS reads the
+boot loader from ROM so that the boot loader can execute the necessary operations to
+start the process
+
+3- Can the boot loader be configured to load 
+   a windows 10 and Centos operating systems?
+Yes,  boot loaders can load more than one
+operating system into the computer's memory, but the user needs to select the
+desired operating system to use during boot.
+
+
+4- What are the main components of the boot loader that load the
+   operating system in stages?
+a- Boot sector program:
+	The first component of the boot loader. It is loaded by
+	a boot environment on startup and has a fixed size of
+	512 bytes. Its main function is to load the second stage
+	boot loader; however, it can also load another sector
+	or a kernel.
+b- Second stage boot loader:
+	Loads the operating system and contains a kernel loader.
+
+c- Boot loader installer:
+	 Controls the installation of drive sectors and can be
+	run only when booting from a drive. It coordinates the
+	activities of the boot sector and the boot loader
+  
+
+5- What is the name of the firware technology that replace  the BIOS?
+  UEFI (Unified Extensible Firware Interface)
+
+6- List three advantages the UEFI firmware has over the BIOS firmware Technology?
+   a- UEFI runs faster than BIOS.
+   b- Can operate within a greater amount of memory.
+   c- Can access storage drives of currently unattainable sizes.
+
+7- List Four other boot environments that Linux can boot from other then
+   the usual BIOS and UEFIi harddisk ?
+a- Boot from ISO:
+	An ISO image is a system image, originally that of an optical
+	disc. Today, it is commonly used as a file format for
+	packaging and distributing images of operating systems that
+	users can boot from, as well as use to install the OS.
+	Typically, you'd write the ISO image to an optical disc or USB
+	thumb drive, then insert the media into the computer and
+	instruct a boot environment like UEFI to boot from that
+	media. ISOs are also commonly used to construct virtual
+	machines.
+b- PXE Preboot Execution Environment:
+	(PXE) is a part of the UEFI
+	standard that enables a client to retrieve the necessary boot
+	loader and system files from a server over the network. The
+	client configures UEFI to boot from PXE, and during the
+	startup process, it will search for Dynamic Host
+	Configuration Protocol (DHCP) servers that also act as PXE
+	servers. Once the proper server is found, the server
+	transfers the necessary boot files to the client over the
+	Trivial File Transfer Protocol (TFTP).
+
+
+c- Boot from HTTP/FTP:
+	Clients can also acquire boot data over a network from
+	content delivery protocols like Hypertext Transfer Protocol
+	(HTTP) and File Transfer Protocol (FTP). These are typically
+	faster, more reliable, and more secure than the standard
+	TFTP protocol used in PXE. Open source implementations of
+	PXE, like iPXE, extend PXE support to include these
+	protocols.
+
+
+d- Boot from NFS:
+	This is another network boot option. Rather than store
+	system files on a local storage drive, a client will mount an
+	NFS share as its root file system. The share must be
+	prepared ahead of time and stored on an NFS server that
+	the client can retrieve the files from. Therefore, the client
+	does not store data locally, but on the NFS server. DHCP,
+	TFTP, and other network protocols can be used to
+	communicate the necessary boot data in such an
+	environment.
+
+
+8- What is a sector?
+	A sector is the smallest unit of storage read from or written to a drive. 
+	A sector stores 512 bytes of data by default. 
+	On hard disk drives, a collection of sectors is called a
+	track. The number of sectors in a track may vary, 
+        and so does their capacity to hold data
+	The size of a sector can be altered when formatting the drive.
+
+
+9- What does the MBR sector contain?
+	The MBR contains the boot loader that loads the operating system into memory.
+	It also contains the partition table of the storage drive. 
+	The MBR determines what sectors are available to each partition, 
+	as well as which partition is considered bootable and 
+        which partitions are not.
+
+
+10- List three benefits the GUID Partition Table (GPT) has over the MBR?
+    a- MBR can have a maximum of 4 Primary partitions. GPT doesn't
+    b- GPT also has the advantage of storing its boot data in multiple 
+       locations on a drive to enhance redundancy. If the primary location 
+       is corrupted, GPT can leverage one of the other copies 
+       to restore the boot data.
+   c- GPT does not have the TWO terabyte limitation for disks that MPR has
+
+
+11- What systems normally use Raw Partitioning?
+   Raw Partitioning is useful in situations where software like 
+   a database management system (DBMS) has its own caching mechanism. 
+   The DBMS has greater control over I/O caching in a raw partition and can
+   bypass the caching normally done by the kernel.
+Note: Be very careful with disks that may look free. They might be in use by 
+      a DBMS database like Oracle's ASM
+
+http://blog.solvaria.com/the-sys-admin-ate-my-database
+
+12-What is the importance of the initrd phase of the boot process?
+The initrd enables the system to be started in two phases. 
+In the first phase, the system is booted with the minimal set of 
+modules required to load the main, or permanent, root file system. 
+In the second phase, when the main root file system is mounted, 
+the previously mounted initrd file system is removed and the 
+user space boot process continues.
+Bonus:
+The initrd is useful because there are many potential 
+variables that can complicate the boot process. 
+For example, the kernel needs to find and load the necessary device
+driver modules, as well as the actual root file system itself. 
+There's also the possibility that the root file system uses one of several advanced 
+storage methods, like LVM or NFS, which have different mount requirements 
+than a standard partition. Rather than hardcode all of this behavior in the kernel 
+and introduce bloat, the initrd's temporary root file system can handle these tasks.
+
+
+13- List the Boot process steps:
+a- Processor checks for BIOS/UEFI firmware.
+b- BIOS/UEFI checks for bootable media.
+c- BIOS/UEFI loads primary boot loader from MBR/GPT partition into memory.
+d- User is prompted to select system to boot; default is booted if no response.
+e- Boot loader loads initrd image into memory and transfers control to kernel.
+f- Kernel configures hardware drivers, decompresses initrd, and mounts it.
+g- Kernel mounts main root partition and executes systemd program.
+h- The system program checks the target and starts various services.
+i- If graphical mode is selected, a display manager is started.
+j- User enters credentials.
+k- System authenticates user and executes profile files.
+l- Shell is started and system is ready for use.
+
+14- List 4 reasons a kernel panic can take place
+	a- Kernel is corrupt
+	b- systemd program was not executed on boot.
+	c- Kernel cannot find/mount root file system.
+	d- Malfunctioning/incompatible hardware loaded on boot.
+
+
+
+15- List the improvements of GRUB2 over the legacy GRUB
+a- Support for non-x86 platforms.
+b- Support for live booting.
+c- Support for partition UUIDs.
+d- Support for dynamically loading modules.
+e- Ability to configure boot loader through scripts.
+f- Rescue mode.
+g- Support for custom menus and themes.
+
+16- How to identify if your system is running on UEFI or BIOS
+	The easiest way to find out if you are running UEFI or BIOS is to 
+	look for a folder /sys/firmware/efi. 
+	The folder will be missing if your system is using BIOS.  
+  or 
+       yum install efibootmgr 
+      then run the command efibootmgr
+    
+ https://itsfoss.com/check-uefi-or-bios/ 
+https://www.linuxbabe.com/command-line/how-to-use-linux-efibootmgr-examples
+

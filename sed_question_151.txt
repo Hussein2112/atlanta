@@ -1,0 +1,12 @@
+/dev/sda
+/dev/sdb
+/dev/sdc
+/dev/sda
+/dev/sdb
+/dev/sdc
+/dev/sda:/dev/sda
+/dev/sda:/dev/sda
+/dev/sdb
+/dev/sdc:/dev/sdc
+/dev/sdb
+/dev/sdc:/dev/sdc

@@ -1,0 +1,102 @@
+1- What is a Package Manager
+Programs that install, update, inventory, and uninstall packaged software.
+
+2- What is a Package?
+Package is a collection of files needed by program to run.
+it is a Pre-compiled app with Supporting files  and Supporting documentation
+
+
+3- List three Distros that use RPM and three that use dpkg
+RPM                          dpkg
+---                           ----------
+Centos                         Debian
+Fedora                         Ubuntu
+Scientific Linux               Kali Linux
+
+
+4- What is the file extension used by the Red Hat Package Manager and what is the extension used by the Debian Package manager
+.rpm for Red Hat Package Managers and .deb for Debian Package Manager
+
+5- What is the latest Package Manager used by Fedora
+   DNF
+
+6- What is the package manager used by OpenSUSE
+   Zyper. supports .rpm packages
+
+7- If you are given a Source Code, can you install it using a package manager
+   No. Source Code must be compiled first in order to be used
+
+8- Explain the following Commands
+rpm -qa   ----> List all installed software
+rpm -qi chrony-3.4-1.el7.x86_64   ---> List information about chrony package
+rpm -qc chrony-3.4-1.el7.x86_64    ---> List configuration files for the chrony package
+rpm -U  chrony-3.4-1.el7.x86_64    ----> installs that package and upgrades if already installed
+rpm -ivh  chrony-3.4-1.el7.x86_64    ----> installs that package and shows # sign for progress
+
+9- What is the advanges yum has over rpm
+Can handle software dependencies.
+Installs package and any packages it needs. Alleviates the dependancy hell that rpm can get into.
+Can uses repositories.
+Store .rpm files.
+Enable admins to maintain version control.
+
+10- Explain what "apt update" does 
+    Updates the APT database
+
+11- What is a repository and list three different repositories
+    A repository or a repo is a storage location for software packages.
+    The three different types of repos are:
+    Local
+    Centralized internal 
+    Vendor
+
+12- What is the command used to sync a repo with a parent repo 
+    Command is "reposync" and that process is known as "mirroring"
+    Ex: Sync RHN repo to local repo
+
+13- what directory are the repos stored for Centos and Debian respectively
+    /etc/yum.repos.d/ for centos
+    and
+    /etc/apt/sources.list for debian
+
+14- what command would you use to install the nmap package on a centos OS.
+    yum install nmap
+
+15- What command would you run to download "https://nmap.org/dist/nmap-7.70.tar.bz2"
+    wget https://nmap.org/dist/nmap-7.70.tar.bz2
+    or
+    curl -o nmap.7.7.tar.bz2 https://nmap.org/dist/nmap-7.70.tar.bz2
+
+16- what will the command "tar -cvf tarball.tar file1 file2 file3"
+    Creates a tarfile of file1 file2 file3
+
+17- List three compression utilty commands
+    gzip bzip2 and xz
+
+18- What a Libraries
+   Libraries are compiled code that can be used in programs to accomplish specific tasks
+
+19 - What is the command to list libraries in a binary or program
+     command is ldd
+     Example: ldd /usr/bin/ls
+
+20- List the steps involved in compiling software after you unpack it
+ a-   ./configure   ( to create a make file, but must first cd to the directory the source code is unpacked)
+ b-   make           ( to compile the application based on the makefile info)
+ c-   make install   (to install the application)
+
+
+
+
+
+
+   Bonus:
+The following command will tar up the current directory except the files 
+mentioned in the exclude file
+#tar -czvf www.tar.gz  -X ~/exclude_tar_files2.txt 
+The exclude file contains 
+ cat ~/exclude_tar_files2.txt
+virtualbox
+
+The following command is similar to above
+tar -czvf lessons.tar.gz * --exclude=virtualbox

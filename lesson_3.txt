@@ -1,0 +1,76 @@
+1- what does the r,w and x permissions  mean on a file 
+
+
+2- can a user list the contents in a directory if he/she has a read (r) permission on the directory?
+
+
+
+3- can a user create files in a directory if he/she has a write (w) permission on the directory?
+
+
+4- What are the permission contexts?
+
+
+
+5- Who can modify the permissions of files/directories?
+
+
+
+6- Explain the following commands
+   a- chmod a+rx file1
+   b- chmod go-rw file1
+   c- chmod u=rwx file1
+
+
+7- Explain the following commands
+   a- chmod 764 file1 
+   b- chmod 750 file1
+  
+
+8- What is a umask and how do you find your current umask is set to?
+
+
+9- If your umask is set to 022, what permissions will your newly created files and directory have?
+   files       
+   directories
+
+
+10- Explain the following commands
+    a- chown cadmin file1 
+    b- chown -R cadmin:sales /opt/apps
+    c- chown -R :mktg /opt/apps      
+    d- chgrp mktg /opt              
+
+12-  Why does the /usr/bin/passwd command require a SUID bit set?
+
+13- What is a common use of SGID on a directory?
+ 
+
+14- How do you set a sticky bit permission on a directory using the octal method?
+
+
+15- What is a benefit of using the immutable flag for a file
+
+
+16- When are the Access Control Lists permissions needed ?
+
+
+17- Explain the following commands
+    setfacl -m u:user1:rwx file1 
+    setfacl -b file1            
+    getfacl file1             
+
+
+18- Explain the following commands:
+    groups cadmin
+    getent passwd cadmin
+    lid cadmin         
+    usermod -aG wheel cadmin
+    gpasswd -d cadmin wheel
+
+
+19-  In how many locations can a sysadmin change the umask
+
+
+
+20-  What will be the command to make sure that no one including root can remove or write to the file /opt/important.txt

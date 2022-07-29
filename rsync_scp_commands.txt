@@ -1,0 +1,12 @@
+#copy files from atlanta to current directory
+rsync -av -e 'ssh -p 2200' stdnt16@atlanta:/tmp/*tar* .
+
+
+
+#Uisng scp this time, copy files from atlanta to current directory
+scp -P 2200 stdnt16@atlanta:/tmp/huss* .
+
+#scp files that with hussein* from my local directory to atlanta:/tmp
+scp -P 2200 hussein* stdnt16@atlanta:/tmp
+
+

@@ -1,0 +1,196 @@
+Bonus:
+1- 
+vim script1.sh
+and write the following script
+---------------------------------------
+#!/bin/bash
+
+echo -n "What is your name: "
+read name
+echo "your name is $name " >> /tmp/names.txt
+---------------------------------------
+
+run the script and then use grep, sed and awk to extract output
+
+Example:
+grep -i john /tmp/names.txt           # show any lines that have the string john
+awk '$4=="John"' /tmp/names.txt       # if the 4th field is John
+sed '/s/John/James/' /tmp/names.txt   # use sed to replace John with James on stream
+sed -i 's/John/James/g' /tmp/names.txt  #Will replace John with James in the file
+
+
+
+
+
+2- 
+Example of Here document:
+To create a 100M partition on the disk name that you provide to the script
+----------------------------------------
+#!/bin/bash
+echo "Please Enter the disk name: "
+read disk
+
+fdisk /dev/$disk << EOF
+d1
+n
+p
+1
+
++100M
+w
+EOF
+------------------------------------------------
+Lesson 5 Review
+---------------
+Common Editors:
+vi
+Vim
+Emacs
+gVim
+gedit
+GNU nano
+
+
+
+#vim
+Invokes Vim text editor.
+vi redirects to Vim.
+Without an argument, command opens welcome screen.
+Use vim {file name} syntax to open a file.
+If no file exists, Vim creates one with that name and opens it.
+Supports multiple files opened simultaneously.
+
+Vim and nano cheet sheets
+https://www.cs.cmu.edu/~15131/f17/topics/vim/vim-cheatsheet.pdf    #vim cheat sheet
+http://www.cheat-sheets.org/saved-copy/Nano_Cheat_Sheet.pdf        #nano cheat sheet
+
+
+#locate file1.txt  ==> Performs a quit search. mlocate db must be updated with updatedb command. Results may be restricted based on access permissions
+
+
+find command:
+--------------
+find  is very versatile but expensive on the cpu.
+Searches specific locations.
+Recursively searches directory structure.
+need root or sudo privilege to search outside of your home directory
+Can use following criteria:
+by name
+by size 
+by owner
+by group
+by suid
+by sgid  etc
+by iname
+-ctime
+-empty
+-user
+-nouser
+
+
+
+#find . -name hosts         ==> Search the current directory and subdirectories for file(s) named hosts. 
+#sudo find / -name passwd   ==> Searches the whole system for a file named passwd
+#find . -ctime 1            ==> changed in the last 24 hours
+#find . -atime 2            ==> accessed in the last 48 hours
+#find /home/student16 -newer file1.txt  ==> find files in stdnt16 home directory that are newer then file1.txt file
+#find . -empty                         ==> find the empty files in the current directory and subdirectories
+#find . -empty -type f                 ==> find empty files in the current directory of type file
+#find . -empty -type f -exec rm -f {} \;   ==> find empty files and removes them
+#find . -empty   |xargs rm -rf             ==> find empty files and directories and remove them
+#find ~cadmin -name "*.tar" -exec cp -v {} /home/stdnt16/test/ \;  ==> find files with  .tar extension and copy thm to /home/stdnt16/test directory
+#find ~cadmin -name "*.tar" |xargs -Ix cp x  /home/stdnt16/test    ==> same as above but using xargs
+
+
+#which cat    ==> find where cat was installed or which version of a command is getting executed in case there is more than one version is installed
+#whereis cat  ==> find location of cat and whether man pages are installed for that command
+
+
+#head -2 /etc/passwd    ==> print the first two lines of /etc/passwd ... default is 10 lines
+#head -n -2 /etc/passwd ==> print all but the last two lines of /etc/passwd
+
+tail -2 /etc/passwd           ==> print the last two lines of /etc/passwd ...deafault is 10
+tail -f /var/log/messages     ==> keep tailing that file to see updates
+
+
+less and more  are used to page thru lengthy text files
+
+#cp /etc/passwd /mnt/backup/                              ==> copy file to target
+#cp /etc/passwd /etc/group /etc/shadow /mnt/backup/       ==>copy multiple files to target(/mnt/backup)
+#cp -v /etc/fstab  /mnt/backup/                           ==> Verbose output during copy command (-v)
+#cp -r /home/linuxtechi /mnt/backup/                      ==> Copying a directory or folder (-r or -R)
+#cp -v -u  file_*.txt /mnt/backup/linuxtechi/             ==> Copy only when source file is newer than the target file (-u)
+#cp -n /etc/passwd /mnt/backup/                           ==> Do not overwrite the existing file while copying (-n)
+
+
+#mv dir1 /tmp/dir1                                        ==> move and rename dir1
+
+
+# rm -r file1.txt file2.txt file3.txt file4.txt              ==> remove those files but interactively
+#rm -r dbstore/                                              ==> Deleting a directory recursively using -r option
+
+
+#wc -l /etc/host                                            ==> count the number of lines of file /etc/hosts
+
+#sort /etc/passwd                                           ==> sort the /etc/passwd in alphabetical order
+#sort -t: -rn -k3 /etc/passwd                               ==> sort the /etc/passwd file in reverse numerical order on the second field using : as the field delimeter
+
+#cut -d: -f1 /etc/passwd                                     ==> display the first field using colon as the delimeter
+
+#diff file1 file2                                             ==> compares two text files and displays differences
+
+#grep -i "the" demo_file                                      ==> grep the word "the" from file demo_file ignoring the case.
+#grep -rl hosts /etc/                                          ==> display the names of files the contain the string "hosts" in the /etc/ directory.
+
+
+#awk -F: '{print $1}' /etc/passwd                             ==> Same as command #cut -d: -f1 /etc/passwd 
+
+#sed 's/bob2/robert/g' /etc/passwd                        ==> replaces the string bob2 with robert /etc/passwd...doesn't change file
+#sed '/Apache/d'     software_list.txt                    ==> delete line containing the string Apache from file...doesn't change file itself. Only on stdout
+
+
+
+
+The ln command:
+---------------
+Used to create a link to a file.
+File name in one directory (link) points to file in another directory (target).
+Link doesn't contain data, only reference to target.
+Changes to link reflect in the target.
+If you don't specify link name, it will be created in current working directory.
+
+#ln -s file1 file2             ==> file2 now becomes a symblic link to file1 (shortcut)
+#ln -s /var/www/html html      ==> html is now a symbolic link to /var/www/html
+
+#ln /etc/passwd mypasswd       ==> mypasswd becomes a hard link to /etc/passwd. A hard link is an exact copy of original not a shortcut.
+
+
+printf " Bob Jones\n 222 Pine Street\n"   ==>  Prints that string to stdout with new line characters.
+
+
+
+Redirection:
+--------------
+Input redirection:
+#mail -s "Subject" to-address < Filename    ==> Email Filename to-address
+
+STDOUT
+======
+cat music.mp3 > /dev/audio      ==> If the sound configurations in your PC are correct, this command will play the file music.mp3
+
+cat file1 > file2              ==> write contents of file1 to file2 by overwriting contents in file2
+cat file1 >> file2             ==> append output of file1 to file2 
+
+
+STDERR
+==========
+cat file1 2>/dev/null            ==>if cat file1 errors then send error message to /dev/null. Error message disappears
+cat file1 2>/tmp/err.log         ==>if cat file1 errors then send error message to /tmp/out.log
+cat file1 file2 &>/tmp/err.log   ==>Send both stdout and sterr to /tmp/err.log
+
+
+
+find ~ -type f -name '*.txt" |xargs chmod 755  ==> find files by extention .txt in my home directory and chmod to 755
+
+cat /etc/passwd |tee  /tmp/mypasswd      ==> Display output of /etc/passwd in stdout but also send output to file /tmp/mypasswd
+

@@ -1,0 +1,51 @@
+1- What is a user account?
+
+2- List three types of user accounts?
+
+3- What is the username of the local system administrator?
+
+4- What is the Principle of the Least Privilege
+
+5- What is the "su" command used for?
+
+6- Why is sudo preferred more than switching to root?
+
+
+7- What is sudoedit command used for?
+
+8- What is th difference between sudo and sudoedit
+
+
+9- What is the appropriate way to edit /etc/sudoers file and why?
+
+
+10- Explain the role of the directory /etc/skel and the file /etc/login.defs in user creation?
+
+
+11- Explain the difference between /etc/passwd and /etc/shadow
+
+12-Explain the command 
+   a- "chage -M 90 cadmin"
+   b- "chage -d 0  cadmin"
+
+13- Explain the command "usermod -e 2020/12/31 cadmin"
+
+14- list two ways that you can lock user1
+
+15- What is /etc/group file for?
+
+16- Explain the command "groupadd -g 456 mktg"
+   
+
+17- What is the groupdel command used for?
+
+18- What is the difference between the commands whoami and "who am i"
+
+19- Explain the commands who, last, lastb and id
+
+20- What is the difference between the files /etc/bashrc and .bashrc
+
+    
+
+    
+       

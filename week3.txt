@@ -1,0 +1,19 @@
+1- Difference between BIOS and UEFI
+
+2- GRUB Password protection
+#########################################
+
+
+3- Changing the system Time Zone
+
+4- Difference between X server and Wayland
+
+5- Stopping and starting daemons
+
+6- identifying and killing processes
+
+7- Checking System performance with top
+
+8- identifying hardware types with lshw
+
+9-  The concept of localizaion

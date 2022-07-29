@@ -1,0 +1,250 @@
+1- What is a device driver?
+	Drivers are an interface between OS and device.
+	Crucial for devices to function in Linux.
+	Great strides have been made to write Linux-compatible drivers.
+	May still be compatibility issues in certain cases.
+	No matter the device, make sure:
+	Device drivers are available.
+	Your system has those drivers.
+	Without drivers, the device may function poorly or not at all.
+
+
+
+        Here is a link on how to display device drivers in Linux
+         =======================================================
+	https://www.cyberciti.biz/faq/howto-display-list-of-modules-or-
+        device-drivers-in-the-linux-kernel/
+
+
+2- How would Linux register/display a USB storage device attached to the system?
+   Linux registers USB storage devices attached to the system in the 
+   format /dev/sd#
+   in the same way as the SCSI/SATA naming convention
+
+
+
+3- How would you define a Thin Client
+   Lightweight computing devices that connect to more 
+   powerful servers for doing work.
+
+
+
+4- T or F USB is very effective for streaming video/audio output in real-time
+   False
+   When you connect a video/audio peripheral to a system running any OS, 
+   including Linux, you need to be mindful of the connection types it 
+   uses and what types are available on the system. 
+   Microphones and webcams commonly use USB, whereas USB is much less effective 
+   for streaming video/audio output in real-time. Monitors, 
+   for example, are more likely to use interfaces like HDMI and Display Port 
+   that can carry both video and audio signals with a high degree of real-time 
+   performance. 
+   Some monitors may use older interfaces like DVI and VGA that only carry video.
+
+
+5- List two ways you can connect to a Printer
+   A- USB for physical connection.
+   B- Wi-Fi and/or Ethernet adapter for network connection.
+      Popular in offices; multiple clients connect to same printer.
+
+
+6- Can a Linux system have more than one Network Interface?
+   Yes. A system can have more than one adapter; this is especially common in 
+   servers and security systems like firewalls. 
+   In addition, each type of network connection protocol requires 
+   its own type of adapter. 
+
+
+7- Are SATA Storage devices suitable for Enterprise Production Environments?
+   No. SATA Storage devices are mainly used for backups.
+   Extra:
+   Serial AT Attachment (SATA) is a computer bus interface standard for 
+   attaching storage devices to traditional computers. In modern PCs, 
+   SATA has largely replaced earlier standards like Parallel ATA (PATA) 
+   and Integrated Drive Electronics (IDE) as one of the dominant 
+   standards in storage connection technology.
+   In the past, SATA was seen as a good solution for situations where capacity 
+   and cost were paramount. SATA supports multiple-terabyte drives and is 
+   relatively cheap to manufacture. However, its slower data transfer rate 
+   compared to alternative standards (6 gigabits per second) made it less 
+   suitable for enterprise environments, and it was most commonly used for 
+   backup purposes and in consumer storage. The most current revision of SATA 
+   (revision 3.2) combines SATA with another bus technology called PCI Express, 
+   which allows it to supports a raw data rate of up to 16 Gb/sfinally rivaling 
+   its competitors.
+
+
+
+
+8- Mention one difference between SCSI and SATA
+   SATA is primarily used for attaching storage devices, 
+   SCSI can be used to attach other types of devices as well, such as DVD-ROM 
+   drives, printers, scanners, etc.
+   However, its application in storage is much more common.
+ 
+   Traditionally, SCSI uses a parallel interface, which tends to cost more 
+   to manufacturer than a serial interface. However, in the past, SCSI provided 
+   high transfer rates and therefore became popular in enterprise storage 
+   arrays where speed was important. The Serial Attached SCSI (SAS) standard 
+   was developed to apply a serial interface to SCSI technology. 
+   SAS offers greater speeds than traditional SCSIup to 24 Gb/s in the recent 
+   SAS-4and supports higher-capacity drives. The serial interface also supports 
+   a more reliable data transfer rate. 
+  SAS has become the go-to technology for many enterprise storage environments
+
+
+
+9- What is an HBA?
+  A host bus adapter (HBA) is a hardware component that connects a host system 
+  to a storage device, like in a storage area network (SAN), in order to 
+  facilitate the input and output of data. They are to storage devices what 
+  network adapters are to networks.
+  HBAs are commonly used with interface technologies like SATA and SCSI. 
+  The HBA might be built into the motherboard, or it might be a separate 
+  expansion card that attaches to the motherboard. In either case, you connect 
+  a storage device to an HBA with the requisite interface in order for the system
+  to work with that storage device
+
+
+
+10- What is PCI?
+    Peripheral Component Interconnect (PCI) is a connection interface standard 
+    that is primarily used as an expansion bus for attaching peripheral devices.
+	Superseded by PCIe.
+	Greater transfer speeds.
+	More reliable error detection.
+	Smaller size.
+	Dominant expansion bus technology.
+	PCIe used for video cards, expansion cards, etc.
+	PCIe also used for connecting NVMe SSDs.
+	Even faster than SSDs in SATA/SAS.
+	Will become more prominent in enterprise storage.
+
+
+
+11- In which directories are device files located?
+    A- /proc/
+    B- /sys/
+    C- /dev/
+
+/proc/	Contains various files that represent system information reported 
+by the kernel. In particular, the /proc/devices file contains a list of all 
+device drivers that the kernel is currently running, separated by character 
+and block storage devices.
+
+/sys/	A virtual file system similar to /proc/ but that focuses more on 
+creating a hierarchical view of device information. In particular, 
+the /sys/devices/ subdirectory includes files that expose details about 
+specific devices.
+
+/dev/	Contains device driver files that enable the system and users 
+to access devices themselves. For example, you can mount a block storage 
+device by referencing it from /dev/, like /dev/sda1.
+Likewise, /dev/mapper/ contains logical volumes, encrypted volumes, and other 
+devices that are managed by device mapper.
+
+
+
+
+12- What is udev and what does it do?
+udev is a device manager that automatically detects and configures 
+hardware devices.
+	it is a  function of systemd.
+	it is  Initialized during boot.
+	it handles configuration for both hotpluggable/coldpluggable devices.
+	it Loads coldpluggable modules when system is booted.
+	it Loads hotpluggable modules dynamically during runtime.
+
+
+13- In Which directory are the udev Rules configured?
+The /etc/udev/rules.d/ directory is used to configure rules 
+for how udev functions
+
+ADDITIONAL udev RULES DIRECTORIES
+=================================
+There are actually several directories that are used to configure udev rules.
+The /etc/udev/rules.d/ directory mentioned previously is primarily used 
+for local  administration of udev. An administrator applies their own 
+customizations to this directory so that udev behaves in accordance with the 
+administrator's preferences and/or the organization's business needs. 
+As a result, the files in this directory are loaded with the highest priority.
+The /usr/lib/udev/rules.d/ directory also contains udev rules. However, 
+these rules are generated by the system, and you should refrain 
+from editing them. Rules in this directory are low priority, 
+so a custom rule named 60- keyboard.rules in /etc/udev/rules.d/ will supersede 
+the default 60- keyboard.rules file in the /usr/lib/udev/rules.d/ path.
+Rules files can also be placed in the /run/udev/rules.d/ directory. 
+These also take precedence over the system rules path. 
+Rules in this path are volatile, meaning that they will apply at runtime but 
+will be lost in the event of a system reboot. 
+Volatile rules can be useful when you need to temporarily override a system 
+rule without actually making the change persist.
+
+
+14- What is the command that is used to manage udev?
+    udevadm
+    udevadm takes subcommands. Some are explained below
+   info:    Retrieve device info/attributes stored in udev database or /sys/
+   control: Modify running state of udev.
+   trigger: Execute rules that apply to plugged-in devices.
+   monitor: Watch for events sent by kernel or udev rule.
+   test:    Simulate udev event running for a device.
+
+
+
+15- Explain the command "udevadm info /dev/sda"
+    Gives detailed info about the disk /dev/sda.
+
+
+
+16- What is CUPS (Common UNIX Printing System)?
+    CUPS is a print management system for Linux that enables a computer to 
+    function as a print server. A system running CUPS is a host that can 
+    initiate print jobs from client systems. These jobs are then processed 
+    and sent to the appropriate printer. The main advantage of CUPS is that 
+    it can process different data formats on the same print server.
+
+
+
+17- Explain the following printer commands.
+    A- lpstat -p                ===> list all the available printers to your machine and their status
+    B- cupsdisable  tty2printer  ==> disable the printer tty2printer  
+    C- lpstat -p | grep disabled | awk '{print $2}' | xargs cupsenable  ==> Enable all print queues
+
+
+
+18- What is the difference between lsusb and lspci?
+	The lsusb command is used to display information about devices that 
+	are connected to the system's USB buses.     
+	The lspci command is used to display information about devices 
+	that are connected to the system's PCI buses.
+
+
+19- Explain the following commands
+  a-  lpq  ==> The lpq command shows the status of the printer queue. 
+  b-  lsblk ==> Identifies block storage devices
+  c-  lpr /etc/passwd  ==> will print /etc/passwd through the default printer
+  d-  dmesg ==> Used to monitor device drivers and the underlying hardware 
+              they control 
+  e-  mcelog ==> Displays issues about physical RAM
+  d-  free -m ==> used to display memory leaking issues. good to use with top
+  f- abrt-cli ls  ==> List report problems if any
+  g- lshw -c network ==> list hardware details of class network.
+  Note:
+     To see a list of classes currently in use on your system, 
+     enter lshw -short | sort -k2 to generate a non-detailed list of devices, 
+     sorted by the class column.
+
+20- What command will you use if new LUNs (disks) are added to your machine thru 
+    SAN?
+   echo "- - -" /sys/class/scsi_host/host?/scan
+   The alternative is a reboot.
+   The hyphens in the echo statement are wildcards for SCSI controller, 
+   SCSI channel, and logical unit number (LUN), respectively. 
+
+
+21- How do you find if the device driver module of your ethernet adapter is loaded
+    follow the steps below
+    a- find out your adapter name ex: run command ip a
+    b- ethtool -i enp0s3 --> will display driver (assuming your device name is enp0s3)
+    c- lsmod | grep e1000 

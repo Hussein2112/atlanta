@@ -1,0 +1,140 @@
+1- Which command  lists of all the users who are members of the group students
+
+A- lslogins
+B- Last
+C- getent group students
+D- getent passwd students
+
+2- find out the device driver for the NIC on your server
+
+
+3- Find the last 10 users that attempted and failed to login to your machine
+
+
+4- Find the last 10 users that successfully logged into your server
+
+
+5- using rsync, copy a file from your local VM to atlanta
+
+6- using scp, copy a file from your local VM to atlanta
+
+7- Compare the checksum of the files that you transferred.
+
+8- identify the log file for your system's authentications
+
+9- identify the logfile for yum and show me the last 10 lines of that file
+
+10- T or F--The following command disables IPV4 forwarding
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+11- What will the following command do
+firewall-cmd --zone=dmz --remove-service=http
+
+12- Explain the following command
+A- audit2why
+B- sealert -a /var/log/audit/audit.log
+C- sestatus
+d- getent hosts
+e- getent passwd
+f-getent group
+
+
+12-
+An administrator is attempting to block SSH connections to 192.168.10.24 using the Linux firewall. After implementing a rule, a connection
+refused error is displayed when attempting to SSH to 192.168.10.24.
+Which of the following rules was MOST likely implemented?
+A.  iptables -A -p tcp -d 192.168.10.24 --dport 22 -j REJECT       .
+B.  iptables -A -p tcp -d 192.168.10.24 --dport 22 -j DROP
+C.  iptables -A -p tcp -d 192.168.10.24 --dport 22 -j FORWARD
+D.  iptables -A -p tcp -d 192.168.10.24 --dport 22 -j REFUSE
+
+
+13-
+Linux administrator has configured a Linux system to be used as a router. The administrator confirms that two network adapters are properly
+installed and functioning correctly. In addition, the output of the iptables -L command appears to contain a complete firewall configuration.
+Which of the following commands does the administrator need to issue for the router to be fully functional?
+A.  echo "1 " > /proc/sys/net/ipv4/ip_forward                           .
+B.  echo "0 " > /proc/sys/net/ipv4/tcp_abort_on_overflow
+C.  echo "0 " > /proc/sys/net/ipv4/max_connections
+D.  echo "1 " > /proc/sys/net/ipv4/ip_default_ttl
+
+
+14-
+A Linux administrator built a GitLab server. Later that day, a software engineer tried to access the server to upload the repository during the final
+step of installation. The software engineer could not access the website. Which of the following firewall rules would allow access to this site?
+A.  iptables -A INPUT -p tcp -m multiport --dports 80,443 -m conntrack -cstate NEW, ESTABLISHED -j ACCEPT
+B.  iptables -A INPUT -p tcp -m multiport --dports 80,443 -m conntrack -cstate ESTABLISHED -j ACCEPT
+C.  iptables -A INPUT -p tcp -m multiport --dports 80,443 -m conntrack -cstate RELATED, ESTABLISHED -j ACCEPT
+D.  iptables -A INPUT -p tcp -m multiport --dports 80,443 -m conntrack -cstate NEW, ESTABLISHED -j REJECT
+
+15-
+A new HTTPS web service is being deployed on a server. Which of the following commands should the Linux administrator use to ensure traffic is
+able to flow through the system firewall to the new service?
+A.  iptables -I OUTPUT -p tcp --sport 443 -j ACCEPT
+B.  iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+C.  iptables -I INPUT --dport 443 -j ACCEPT                           .
+D.  iptables -A OUTPUT -p tcp --dport 443 -j ACCEPT
+
+16-
+Linux administrator is updating iptables rules and is given the following tasks:
+✑ Output a list of iptables rules.
+✑ Remove all iptables rules.
+Which of the following actions should be performed from the terminal console to accomplish these tasks? (Choose two.)
+A.  iptables -F
+B.  iptables -L
+C.  iptables -I
+D.  iptables -C
+E.  iptables -A
+F.  iptables -N
+
+
+17-
+A Linux administrator needs to configure a new firewall without an existing ACL to allow incoming web traffic. The firewall must log the allowed
+network traffic.
+Which of the following command sequences would accomplish this task when they are executed in order?
+A.
+iptables -A INPUT -p tcp --dport 80 -J LOG
+iptables -A INPUT -p tcp --dport 443 -J LOG
+iptables -I INPUT -p tcp --dport 80 -J ACCEPT
+iptables -I INPUT -p tcp --dport 443 -J ACCEPT
+
+B.
+iptables -I INPUT -m multiport -p tcp --dports 80,443 -J LOG
+iptables -I INPUT -m multiport -p tcp --dports 80,443 -J ACCEPT
+
+C..
+iptables -A INPUT -m multiport -p tcp --dports 80,443 -J LOG
+iptables -A INPUT -m multiport -p tcp --dports 80,443 -J ACCEPT
+
+D.
+iptables -A INPUT -p tcp --dport 80 -J ACCEPT
+iptables -A INPUT -p tcp --dport 443 -J ACCEPT
+iptables -A INPUT -p tcp --dport 80 -J LOG
+iptables -A INPUT -p tcp --dport 443 -J LOG
+
+18-
+systems administrator needs to allow the Linux server to receive HTTP connections from Internet hosts. By default, the port for HTTP
+connections is blocked.
+Which of the following rules should be added in the firewall to allow this type of connection?
+A.  firewall-cmd --zone=public --add-port=443/tcp --permanent
+B.  firewall-cmd --zone=internal --add-port=80/tcp --permanent
+C.  firewall-cmd --zone=public --add-port=80/tcp --permanent
+D.  firewall-cmd --zone=internal --add-port=443/tcp --permanent
+
+
+19-
+An operator finds a user is having issues with opening certain files.
+Which of the following commands would allow the security administrator to list and check the SELinux context?
+A.  ls -D
+B.  ls -a
+C.  ls -Z
+D.  ls -1
+
+
+20-
+A Linux administrator implemented a new HTTP server using the default configuration. None of the users on the network can access the server. If
+there is no problem on the network or with the users'  workstations, which of the following steps will BEST analyze and resolve the issue?
+A.  Run netstat to ensure the port is correctly bound, and configure the firewall to allow access on ports 80 and 443
+B.  Run route to ensure the port is correctly bound, and configure the firewall to allow access on ports 80 and 443
+C.  Run netcat to ensure the port is correctly bound, and configure a static route to the web to allow access on ports 80 and 443
+D.  Run route to ensure the port is correctly bound, and configure SELinux to allow access on ports 80 and 443

@@ -1,0 +1,43 @@
+1- What is the first thing that runs when a computer with BIOS is started? 
+
+
+2- What is a boot loader? 
+
+3- Can the boot loader be configured to load 
+   a windows 10 and Centos operating systems?
+
+
+4- What are the main components of the boot loader that load the
+   operating system in stages?
+
+
+5- What is the name of the firware technology that replace  the BIOS?
+
+6- List three advantages the UEFI firmware has over the BIOS firmware Technology?
+
+7- List Four other boot environments that Linux can boot from other then
+   the usual BIOS and UEFI harddisk ?
+
+
+8- What is a sector?
+
+
+9- What does the MBR sector contain?
+
+
+10- List three benefits the GUID Partition Table (GPT) has over the MBR?
+
+
+11- What systems normally use Raw Partitioning?
+
+
+12-What is the importance of the initrd phase of the boot process?
+
+
+13- List the Boot process steps:
+
+14- List 4 reasons a kernel panic can take place
+
+
+
+15- List the improvements of GRUB2 over the legacy GRUB

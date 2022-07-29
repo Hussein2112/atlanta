@@ -1,0 +1,386 @@
+Lesson1
+
+File Management
+====================
+touch file1 file2 file3 file4 file11 file12
+ls                             #list files in the current directory. No file attributes displayed just names
+ls -al                         #List all files including hidden ones and their attributes
+ls -ltr                        #List all files in reverse order by time. Newest ones listed at the bottom. My favorite ls command
+ls -lh                         #List all files with attributes. Show their size in Human readable format
+ls -ltr /var/log               #list the files in /var/log in reverse order by time showing newest ones at the bottom.
+ls -l xyz[1-3]*               #List all files with name starting with xyz1 or xyz2 or xyz3 followed by other characters.
+ls -l [af]*                   #List all files that start with a or f followed by other characters.
+ls -l ab??                    #List the files with name starting with ab followed by two characters
+
+
+echo                                        #Will display an empty line
+echo "Hello Everyone"                       #Will echo the words Hello Everyone on the screen
+echo "Hello Everyone" > file1.txt           #Will write "Hello Everyone" on file1.txt overwriting the old content of file1.txt
+echo "Hello Everyone" >> file1.txt          #Will append "Hello Everyone" on file1.txt...Will NOT overwrite the content.
+
+pwd                                         #Displays the current working directory on the screen
+
+
+cd                       #Takes you to your current user's home directory
+cd ~cadmin               #Will take you to user cadmin home directory provided you have permission to access that user's directory.
+cd -                     #Will take you to the last directory your were in
+cd /etc                  #Will take you to the /etc directory
+cd mydir                 #Will take you to the directory named mydir which if it is under your current directory.
+cd ../                   #Go back one directory from your current directory
+cd ../..                 #Go back two directories back from your current directory
+
+
+
+touch file1 file2 file3 file4 file11 file12   # Will create all these files. Provided you have permission to create files in that directory.
+touch -t 2006221010 Downloads  # YYMMDDHHMM.ss # will change the timestamp of the Downloads directory
+touch -f /var/log/messages
+
+cp file1 file2                               #Will copy file1 to file2
+cp -r /home/cadmin/dir1 /tmp/dir1            #Will copy that directory contents recursively to /tmp/dir1
+
+mkdir dir1                                  #Creates dir1 in your current location provided you have the permission to do so.
+mkdir /tmp/dir1                             #Creates dir1 in /tmp. Provided that directory was not created already by another user.
+
+mv dir1 dir2                                #if dir2 does NOT exit, this command renames dir1 to dir2 But if dir2 exit then 
+					     it will move dir1 into dir2
+mv file1 /tmp                               #moves file1 from current directory to /tmp
+mv file2 /tmp/file3                         #moves file2 from current directory to /tmp renaming it to file3
+
+
+
+rm xyz*                                    #Removes all files with names starting with xyz. Must have permission to
+rm file??                                  #Removes any file the starts with file followed by two other characters. Must permission
+rm -rf /tmp/*                              #Removes all the files /tmp without prompting. Must be root
+rmdir dir1
+
+cat 
+cat file1                                #Displays the contents of file1 on the screen
+cat file1 > file2                        #Writes contents of file1 to file2. Overwrites anything that was written in file2
+cat /var/log/messages                    #Displays the contents of the messages file on the screen.
+
+
+
+tail -f /var/log/messages               #Displays the last ten lines and also any new content that is written to the file /var/log/messages
+tail /var/log/messages                  #Displays the last 10 lines
+tail -20 /var/log/messages              #Displays the last 20 lines
+
+head -15 /etc/passwd                    #Displays the top 15 lines
+
+File Editing Commands
+======================
+vim    # vim cheatsheet https://vim.rtorr.com/
+nano
+gedit
+
+visudo                                               #edits the file /etc/sudoers..Checks for Syntax errors
+sudoedit   # %editors ALL = sudoedit /path/to/file   #Allows members of the group editors to edit the file /path/to/file
+
+PowerManagement
+==================
+shutdown -h now       # Shuts down with no delay.
+shutdown -h -t 90     # Shuts down in 90 seconds.
+shutdown -r now       # Reboots with no delay.
+systemctl reboot      #Reboots ... Centos 7 and higher
+systemctl poweroff    #Poweroff ...Centos 7 and higher
+init 0                #Poweroff ...Works on Old and New Linux
+init 6                #Reboot ...Works on Old and New Linux
+init 3                #Multiuser with NO GUI ...Works on Old and New Linux
+init 5                #Multiuser with GUI    ...Works on Old and New Linux
+
+
+Switch User commands
+======================
+
+su - root               #Switch user to root
+su -                    #Swith user to root
+su root                #Switch to root but keeps old user's environment...not recommended especially for new users
+su - cadmin            #Switch to user cadmin
+
+sudo su -             #Swith to root only if your user is a member of wheel group..Provide current user's password.
+sudo rm -f file1      #Remove file1 using sudo without being prompted. 
+sudo !!               #Run the last command
+
+
+Bash History
+==============
+up arrow        #Search your previous commands
+down arrow
+tab              #This is bash shell command and filename completion
+tab tab          #Displays all commands that contain the letters that you typed. Good command to learn from
+ctrl+r           #Search a command from your history
+history          #Display all the commands that you previously typed. Depends on $HISTSIZE variable
+
+
+
+Help
+=========
+man ls             #Displays the manual for the ls command
+info rm            #Displays the manual for the rm command
+whatis useradd     #Display brief description of command
+apropos remove     #Displays any command or function that contains the word remove
+ls --help          #Displays ls command usage
+/usr/share/doc   #Directory of documentation for software packages.  Includes author, licensing, installation, README, etc.
+
+
+
+
+
+Lesson 2 
+=========
+=========
+
+
+Managing Users:
+===============
+useradd -c "Finance Manager" manderson                 #Add user manderson but also add a GECOS field (Comment)
+useradd -e 2020/12/31   cmason                         #Add user cmason. cmason access expires on that date
+useradd -s /bin/ksh susan                              #Add user susan and assing a korn shell instead of the default "Bourne Again" shell
+useradd -D                                             #View default config for new users
+
+passwd                                        #Change your current user's password 
+passwd cadmin                                 #Change user cadmin's password. Must be root etc
+getent passwd cadmin                          #Find out if user cadmin exists on your system. Either locally or thru Directory Services
+getent group mkt                              #Find out if group mkt exists on your system. Either locally or thru Directory Services                               
+
+chage -E 2022/12/31 susan                         #Change the expiry date of user susan to that date
+chage -E $(date -d +180days +%Y-%m-%d) cadmin     #Change user cadmin expiry to 180 days from today
+chage -l cadmin                                   #Show account aging information
+chage -M 90 mike                                  #Set the maximum number of days (to 90) during which a password is valid
+chage -m 3 mike                                   #Set the minimum number of days between password changes to 3.
+chage -W 7 mike                                   #Set the number of days of warning before a password change to 7
+
+usermod -c "User Two" user2                      #Modify  the value of the user's password file comment field
+usermod –e 2020/12/31 user1                      #Modify user1 expiry date to 2020/12/31
+usermod –aG sales user1                          #Adds user to group sales, keeping them in existing groups.
+usermod -g sales user1                           #Change user1's PRIMARY group to  sales
+
+usermod -l user99 user1                          #Changes User1's login name to user99
+
+Locking user:
+Either one of the following two commands can be used to lock a user account.
+passwd -l user1                                #Lock user1 using the passwd command
+usermod -L user2                               #Lock user2 using the usermod command
+
+Unlock:
+Either one of the following two commands can be used to unlock a user
+passwd -u user1                               #unlock user1 using the passwd command
+usermod -U user2                              #unlock user1 using the usermod command
+
+userdel user1                                #Deletes user user1 but leaves home directory files as orphaned
+userdel -r user2                             #Deletes user2 and his files and directories                                                          
+
+Managing Groups:
+----------------
+groupadd    mkt                   #Add a new group called mkt
+groupadd –g 123 sales
+groupadd –f sales              # Exit with success if group already exists.
+groupadd –o –g 123 sales       # Allow group creation with non-unique ID.
+
+groupmod -g 123 sales
+groupmod -n newsales sales     #Rename the group
+groupdel sales                 #doesn't delete users. Just group
+
+User Management files
+---------------------
+/etc/passwd      # Files were local users get created
+/etc/shadow      #a text file that contains information about the users encrypted passwords and related info.
+/etc/skel/     #Files and directories in this directory are automatically copied to NEW user's Home directory
+/etc/profile   #Provides system-wide environment variables.
+~/.bashrc      #Enables customization of user's environment., variables, aliases, Prompt ...
+~/.bash_profile #Provides shell configuration for initial login. PATH etc
+/etc/profile.d/  #Recommended to set variables in scripts here.  Rather than edit /etc/profile directly.
+
+/etc/bashrc     #Provides system-wide Bash settings.  Different than /etc/profile (used for variables). Aliases, functions etc go here
+
+A new user has been added to a linux machine. Which of the following directories would contain the users default files?
+a.	/etc/login.defs
+b.	/etc/passwd
+c.	/etc/skel
+d.	/etc/inittab
+
+
+
+Account querying:
+=================
+whoami                  #Print the user name associated with the current effective user ID.  Same as id -un.
+who am i                #Print The user you originally logged in as.
+who                     #Determine details of users currently logged in.
+w                       #Displays details of logged in users and transactions.
+last                    #Display users that logged in the system.Show logged and logged out time
+lastb                   #Display users with failed attempted logins. Only root is allowed to run this command
+id cmason               #print real and effective user and group IDs for user cmason
+
+
+
+
+Lesson 3:
+Permissions:
+===================
+
+Symbolic Method
+----------------
+1- chmod u=rwx,g=rx,o=r myfile     #using symbolic method assign rwx for user, rx for group r for others.
+2- chmod 754 myfile                #Same as above using Octal method
+3- chmod -R 755 mydir1             #Recursively assign 755 permissions to mydir1 directory
+
+4- chmod u=rw example.jpg          #Assign rw permissions to the owner of the file.
+5- chmod u+s comphope.txt          #Assign SUID to file comphope.txt
+6- chmod a=rw file.txt       #same as chmod 666 file.txt
+7- chmod -c 744 myfile       #Report changes made to permissions.
+
+
+Absolute Method:
+-----------------
+Binary Permissions Calculation
+r     w    x
+4   + 2  + 1
+2^2  2^1  2^0
+
+0 0 0  = 0 = ---
+0 0 1  = 1 = --x 
+0 1 0  = 2 = -w-
+0 1 1  = 3 = -wx
+1 0 0  = 4 = r--
+1 0 1  = 5 = r-x
+1 1 0  = 6 = rw-
+1 1 1  = 7 = rwx
+
+
+umask                    # This command will display the current umask
+umask 002                # This command will set your umask to 002
+
+umask in /etc/bashrc  		#system-wide umask
+umask in /etc/profile  		#System wide umask
+umask in ~/.bashrc    		#umask set per user 
+umask  002            		#umask set manually on the current terminal to 002
+
+
+chown root file1               #Change file owner to root
+chown :root file1              #Change group file to root
+chown hussein:hussein file1    #Change owner to hussein user and group to hussein group
+
+chown --from=root:hussein hussein:root file1    #The above command will check whether the existing owner is 'root' and group is 'hussein'. If yes, then owner will be changed to 'hussein' and group will become 'root'.
+
+chown hussein: file1
+Will make sure the ownership is given to 'hussein' and the group gets changed to the login group of 'hussein'. Note that this is different from the case when colon (:) isn't used, as in that case , the group remains unchanged.
+
+ 
+sudo chown -R hussein:hussein dir1 -v
+
+chgrp root file1
+chgrp -h root file1symlink
+
+
+chgrp --reference=file2 file1  #Will command will make the group ownership of file1 same as that of file2.
+
+SUID, SGID and Stick bit
+------------------------
+chmod 4555 [path_to_file]
+chmod u+s dir1
+chmod 2555 dir1    #r-xr-sr-x
+chmod g+s dir2
+chmod 1777 newwdir
+
+
+Attribute Change:
+------------------
+chattr +i file1
+chattr -R +i dir1
+chattr -i  file1
+sudo chattr +i /home/ruth/training*_doc.txt
+lsattr -d dir1   #List directories like files instead of their content
+
+ACLs
+--------
+getfacl file1                                       #Retrieve ACLs of file1
+setfacl -m u:cadmin:rwx file1                       #Give cadmin Full permission to file1
+setfacl -m u:susan:7 file1                          # Give Susan Full permission to file1
+setfacl -b file                                     #Remove All ACL Entries
+
+
+
+
+
+Lesson 11
+Managing Packages:
+===========================
+Redhat based:
+-------------
+rpm -vV iperf   #v --> verbose ... V --> Verify software components of package exist.
+rpm -qa nmap              #List all installed software.
+rpm -qi nmap               #List information about a package.
+rpm -qc httpd              # List configuration files for a package.
+rpm -U httpd               #Installs and upgrades if already installed
+rpm -F httpd               #Just freshens(upgrades)
+
+
+yum install packagename         #install package from any configured repository.
+yum localinstall  packagename   #Install package from local repository.
+yum remove  packagename         #Uninstall package.
+yum update  packagename         #Update package or all installed packages if no argument given.
+yum info packagename            #Report info about package.
+yum provides filename           #Report what package provides specified files.
+yum history                     #Show a history of the packages installed
+
+
+
+
+Debian based:
+-------------
+apt install packagename      # Install package.
+apt remove  packagename      # Uninstall package, leaving behind config files.
+apt purge   packagename      # Uninstall package, removing config files.
+apt show    packagename      # Report info about package.
+apt version packagename      # Display version info about package.
+apt update                   # Update the APT database of available packages.
+apt upgrade packagename      # Upgrade package or all packages if none provided.
+
+
+
+Repositories explained
+----------------------
+Local:
+Stored on system's storage drive.
+Installation is easy, but version control difficult.
+
+Centralized internal:
+Stored on one or more systems in a LAN.
+Version control is simpler.
+
+Vendor:
+Maintained on Internet.
+Version control is managed by vendor.
+
+
+
+
+wget & curl Examples:
+-------------
+wget and curl are the commands used to "Download" software from a webserver.
+These two commands can NOT upload. Must use scp, rsync,sftp etc to achieve that goal.
+
+Examples of downloading with wget and curl:
+-------------------------------------------
+wget http://download.samba.org/pub/samba/samba-latest.tar.gz         #Downloads the file samba-latest.tar.gz
+curl -o nmap-7.70.tar.bz2 https://nmap.org/dist/nmap-7.70.tar.bz2    #Downloads the file nmap-7.70.tar.bz2 with name nmap-7.70.tar.bz2
+
+
+
+tar
+----
+tar cvf file.tar file*         #creates a tar file named file.tar of all the files that start with file* in this directory.
+tar czvf files.tar.gz file1    #Same as above but also compresses using gzip
+tar tvf file.tar               #Shows you the contents of the tar file. Note the tar file (file.tar) is not compressed
+tar tzvf file.tar.gz           # Shows you the contents of the compressed tar file
+
+
+ldd:
+------
+ldd /bin/ls                   #Displays the shared libraries used by the command ls
+
+
+Links
+======
+ln -s /var/log logs         #Creates a soft link called logs of /var/log
+ln fila fileb               #Creates a hard link called fileb of filea
+

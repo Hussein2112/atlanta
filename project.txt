@@ -1,0 +1,26 @@
+Note:
+Make a snapshot of your VM or clone it.
+
+where possible, show the commands you used.
+
+1- Add 2 1G disks to your VM
+Use Link below on how to add a disk
+http://45.32.212.147/virtualbox/
+download the file How_to_add_a_disk_your_virtual_machine.doc
+
+2- Use parted or fdisk to partition the disks
+3- Create a volume group named appvg on the two disks
+4-  Create a Logical Volume named applv on the newly created VG.
+     Size of LV should be 1.5G
+5-  Create a ext4 filesystem on the LV
+6-  Create a mountpoint name /apps
+7-  mount the newly created LV on the /apps mountpoint
+8-  Create 10 files on /apps
+9-  Tar up and compress the files using gzip. 
+    The name of the tar file should be appfiles.tar.gz
+10- Search for the file appfiles.tar.gz using the find command and 
+     then the locate command 
+
+Bonus (I don't expect you to get this part right since we haven't yet covered):
+if you have two Virtual Machines and they can ping each other, copy the compressed tarball
+on the second server and untar/uncompress the tarball.

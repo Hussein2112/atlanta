@@ -1,0 +1,64 @@
+1- create a group called mkt
+  Answer: as root run the command
+   groupadd  mkt
+2- Create a directory called /shared
+   and assign the mkt group to /shared 
+  Answer: 
+   as root run the command
+   mkdir /shared ; chgrp mkt /shared
+3- create three users susan, mark and gina and assign them passwords
+  Answer: 
+   as root run the commands:
+   useradd gina
+   useradd mark
+   useradd susan
+  
+  for i in gina mark susan
+  do
+     echo "redhat!23" |passwd --stdin $i
+  done
+
+4- Add mkt group as secondry group to the above three users
+  Answer: 
+   as root run the commands:
+   usermod -aG mkt gina
+   usermod -aG mkt mark
+   usermod -aG mkt susan
+  OR
+ for i in gina mark susan
+do
+  usermod -aG mkt $i
+done
+   
+5- switch to user mark then cd to /shared
+   su - mark; cd /shared
+6- create 5 files in /shared as mark file1 to file5. You may get an error.why?.. Fix it
+   touch file{1..5}
+   To fix the error message 
+   chmod g+w /shared
+
+7- Switch to mark again, cd to the /shared directory now and create file1 to file5
+   su - mark; cd /shared
+   touch file{1..5}        ===> It should work this time
+
+8- Exit as mark and switch to susan
+   exit
+   su - susan
+
+8- cd to /shared as susan
+   cd /shared
+
+9- Create 5 files as susan in /shared    (file6 to file10)
+  touch file{6..10}
+10- Who are the owners and groups of the files you just created.
+    The groups owners of these files would be susan and mark which is not what we want.
+    We want the group to become mkt soon as we create the files
+
+11- We need to make sure any new files we create in the /shared directory belong to the mkt group
+    Make the necessary change to achieve that goal. Must make the change as root
+    as root
+    chmod 2775 /shared  or chmod g+s /shared
+12- Switch to mark again and create two new files in /shared (newfile1 and newfile2)
+    What is the group ownership of the two newfiles now.
+    Answer:
+          The groups on the files now are mkt because of th SGID on the directory /shared

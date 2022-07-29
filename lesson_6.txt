@@ -1,0 +1,57 @@
+
+
+
+
+1- List the system components that rely on the Kernel.
+
+
+
+2- What is a device driver?
+
+
+3- Is the Linux Kernel Monolithic or Micro Kernel? and mention one characteristic of a Monolithic Kernel
+
+
+
+4- What command will you run to display the linux kernel version?
+
+
+5- List 5 functions performed by the Kernel
+
+
+6- what are the advantages of the Kernel modules?
+
+
+7-  What is the directory the Kernel modules are located for Red Hat based?
+
+
+8- Why is the modprobe command preferred over the other Kernel Module Management commmands insmod and rmmod?
+
+
+9- How does the depmod command facilitate the modprobe command?
+
+
+10- In which directory are the kernel module configuration files located?
+
+
+11- What is the command used to change kernel parameters? Also, list the configurable kernel parameters
+
+
+12- How do you find details about your cpu and memory using the Virtual Filesystem /proc
+
+
+13- What command do you run to look for potential issues with your hadware or kernel components
+    dmesg (-H option makes more human readable)
+
+
+14- explain the following commands
+   a- #dmesg -h               ====> 
+   b- #dmesg -H -l err        ====> 
+   c- #dmesg -H |grep usb     ====> 
+   d- modinfo usblp           ====> 
+
+15- Following the link below as example to load the btrfs kernel module
+    then blacklist it so it does NOT load after a kernel reboot
+   https://www.systutorials.com/docs/linux/man/5-modules-load.d/
+   https://www.golinuxcloud.com/disable-blacklist-kernel-module-centos-7-8/
+

@@ -1,0 +1,157 @@
+1- What does localization usually include?
+a- Translating interface into a language.
+b- Converting measurements between regional systems.
+c- Configuring keyboard layout.
+d- Setting date and time.
+
+
+2-List Three ways that you can change a system's time zone?
+  a- create a symbolic link to zone file to /etc/localtime file.
+     ex: Command below will set server time Central US
+       ln -s /usr/share/zoneinfo/US/Central  /etc/localtime
+  b-   locatectl set-timezone America/New_York # This command changes server time to New York 
+  c-   export TZ=America/New_York
+
+
+3- Explain the following commands
+  a- timedatectl set-time 23:00        ===> sets the system time to 23:00
+  b- timedatectl set-ntp 0             ===> will disable NTP server synchronization
+  c- date +'%Y/%m/%d %H:%M'            ===> will display the date in Year/Month/DayofMonth  Hour:Minute
+  d- hwclock -w                        ===> Sync the hardware clock with the software clock.
+ 
+
+
+4- Explain the following commands:
+   a-localectl set-keymap us                  ====> Change your keyboard mapping to US
+   b- localectl set-locale LANG=uk_UA.utf8    ====> Changes the Language to Ukranian
+
+
+5-  What are the names of the two most common Display Servers
+    X windows
+    Wayland
+
+6- What is the main difference between X Windows and Wayland display servers
+   The primary difference between Wayland and X is that, in Wayland, the compositor is
+   the server rather than a separate component. This enables clients to exchange events
+   directly with the compositor, cutting out the X server as a middle man.
+
+
+7- What is the most common Desktop Environment used today?
+   GNOME
+
+
+8- List Four Desktop Environments in Linux?
+   GNOME
+   KDE PLasma
+   Cinnamon
+   MATE
+
+
+9- What is one benefit of using a Remote Desktop Environment over a normal ssh CLI session?
+   Remote Desktop Environment is useful if you want to install a GUI application on a Remote machine
+   Examples of Remote Desktop Softwares are : VNC, xrdp, NX, SPICE
+
+
+10- What are services?
+	Service are Software that responds to request from other programs.
+	Provides specialized functionality.
+	Can be critical or non-critical.
+	Typically implemented as daemons.
+	Daemon: Programs that run in the background.
+	No user intervention necessary.
+	Lie dormant until triggered.
+	Can operate at regular intervals.
+	Can be started by system, apps, or users.
+
+
+11- What are the two main methods that initialize a Linux System?
+    SysVinit
+    systemd
+
+
+12- Which the newer method of initializing a Linux System?
+    systemd is the newer suite of software that replaced the older init method
+	systemd also provides tools for service management.
+	Dominant in modern Linux distros.
+	Example improvements:
+	Supports parallelization.
+	Reduces shell overhead.
+	Control Groups are better at isolating/categorizing processes.
+
+
+
+13- What are unit files?
+    Unit files are basically configuration files systemd uses to determine how to handle units.
+	Units are system resources systemd can manage.
+	Network services, devices, file systems, etc.
+	Daemons manage resources.
+	Defined in categories.
+	Extension determines category (e.g., .automount).
+	Written in declarative language.
+	Can exist in multiple locations.
+	Default is /lib/systemd/system
+	Replace files in /etc/systemd/system
+	Create .d directory with unit file's name and .conf file in that directory for granular editing.
+
+
+
+14-  What are systemd targets?
+     Systemd targets are basically a grouping of unit files
+       example: /lib/systemd/system/graphical.target
+
+
+
+15- What command do we use to stop, start or check the status of a service
+    the systemctl command is used to control the systemd init daemon
+    example:  systemctl restart sshd
+
+
+16- Explain the following commands.
+    systemctl isolate muti-user.target  ===> administrator perhaps wants to work in CLI mode only
+    systemctl isolate graphical.target  ===> administrator perhaps wants to go back to GUI mode
+
+
+
+17- What are 5 different states of Processes?
+	Running
+	Interruptible sleep
+	Uninterruptible sleep
+	Zombie
+	Stopped 
+
+
+18- Using the ps coommand, how would you list the top 10 CPU consuming processes?
+    ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu |head   ===> Top ten CPU consuming processes
+    ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem |head   ===> Top ten memory consuming processes
+
+
+19- What is the systemd-analyze command used for?
+     systemd-analyze is used to retrieve performance statistics for boot operations
+     Example: systemd-analyze blame will identify services and other units the make the system slow to boot
+
+
+
+20- Explain the following command
+    a- lsof -i            ===> List all Listening and Established network services 
+    b- kill -9 1234       ===> would kill PID 1234 immediately...Last resort
+    c- bg %1              ===> will put the Job id 1 in the background
+    d- uptime             ===> Displays stats of system and how long the system was up..Load average etc...
+
+
+21- What is the significance of the following two files
+    a- /proc/cpuinfo    ===> Contains info about system's processor.
+    b- /proc/meminfo    ===> Contains info about system's memory.
+
+
+
+
+ 22- How do you find a process's nice value with the ps command
+ ps -eo pid,user,args,nice --sort user|less 
+
+23- A user wants to start the application loadtest.bin in a way that minimizes its effects on other system users. 
+Which of the following commands should be used to start the application with minimal impact?
+a.	nice -n 15 loadtest.bin       (correct answer is A)
+b.	nohup loadtest.bin
+c.	bash -x loadtest.bin
+d.	sudo renice -n 15 loadtest.bin
+
