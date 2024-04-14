@@ -1,9 +1,0 @@
-This is just a test file to how awk works with paragraphs
-again this is just a test
-testing testing
-
-
-
-This is just a test file to how sed works with paragraphs
-again this is just a test
-testing testing
